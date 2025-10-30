@@ -2,26 +2,22 @@ using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Guizan.Dialog;
+using Guizan.NPC;
 
 public class MockDialog : MonoBehaviour
 {
     [SerializeField]
-    private AgentDialogManager agentDialogManager;
+    private DialogManager dialogManager;
 
     [SerializeField]
-    private Sprite image;
+    private NPCConfigs configs;
 
-    [SerializeField]
-    private List<string> texts;
-
-    private void Start()
-    {
-        agentDialogManager.InitializeDialog(image);
-    }
 
     [Button]
-    public void SendText()
+    public void StartDialog()
     {
-        agentDialogManager.ReceiveAnswer(texts);
+        dialogManager.gameObject.SetActive(true);
+        dialogManager.InitializeDialog(configs);
     }
 }

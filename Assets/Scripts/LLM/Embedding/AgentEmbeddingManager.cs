@@ -12,13 +12,15 @@ namespace Guizan.LLM.Embedding
         [SerializeField, Range(0f, 1f)]
         private float similarityAccept = .5f;
 
-        //[SerializeField]
-        //AgentMemoryManager memoryManager = null;
-
         [SerializeField]
-        private List<FileEmbedding> FileEmbeddings;
+        private List<FileEmbedding> fileEmbeddings;
 
         private List<Message> memoryResponse = new();
+
+        public void SetFileEmbeddings(List<FileEmbedding> newFileEmbeddins)
+        {
+            fileEmbeddings = newFileEmbeddins;
+        }
 
         public void TestEmbedding(string textToTest, Action<List<Message>> onEmbeddingResponse = null)
         {
@@ -28,10 +30,10 @@ namespace Guizan.LLM.Embedding
 
         private IEnumerator WaitMemoryResponse(string textToTest, Action<List<Message>> onEmbeddingResponse)
         {
-            int count = FileEmbeddings.Count;
+            int count = fileEmbeddings.Count;
             MakeEmbedding(textToTest, (emb) =>
             {
-                foreach (var embedding in FileEmbeddings)
+                foreach (var embedding in fileEmbeddings)
                 {
                     TestFileEmbeddingSimilarity(emb, embedding, () => count--);
                 }

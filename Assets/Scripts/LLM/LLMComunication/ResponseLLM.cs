@@ -1,5 +1,6 @@
 using Guizan.LLM.Agent.Actions;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,7 +27,21 @@ namespace Guizan.LLM
         {
             this.type = type;
             responseText = responseJson;
-            LLMResponseAction response = JsonConvert.DeserializeObject<LLMResponseAction>(responseJson);
+            LLMResponseAction response = new();
+            try
+            {
+                response = JsonConvert.DeserializeObject<LLMResponseAction>(responseJson);
+            }
+            catch(Exception e)
+            {
+                Debug.LogError($"LLM Respondeu um Json Inválido:\n{responseJson}");
+                Debug.LogException(e);
+                pages = new();
+                action = new();
+                type = ResponseType.Error;
+                return;
+            }
+
             pages = response.Pages;
             action = response.Action;
         }

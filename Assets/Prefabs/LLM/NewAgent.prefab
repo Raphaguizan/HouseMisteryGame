@@ -68,29 +68,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c3d4be65d2feb6469847834b412a592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Guizan.LLM.Agent.AgentMemoryManager
-  myMemory: {fileID: 11400000, guid: 9e49c5db745d47042976296bdd372357, type: 2}
-  permanentMemoriesList:
-  - {fileID: 11400000, guid: eb5c7a5d89b47ce4cb164b7b1467f06b, type: 2}
-  - {fileID: 11400000, guid: c65b7e7e8591755429797204206e03cf, type: 2}
+  myMemory: {fileID: 0}
+  permanentMemoriesList: []
   memoryTotalLenght: 25
   sumaryPrompt: "Voc\xEA est\xE1 interagindo com um jogador por meio de um personagem
-    (NPC) em um jogo. O que foi conversado at\xE9 agora n\xE3o ser\xE1 enviado novamente.
-    A partir desta mensagem, quero que voc\xEA gere um resumo conciso da conversa
-    anterior.\r\n\r\nEsse resumo deve servir como uma mem\xF3ria para o NPC, contendo
-    apenas os fatos importantes, inten\xE7\xF5es, decis\xF5es ou sentimentos relevantes
-    que o jogador demonstrou.\r\n\r\nIgnore cumprimentos, piadas ou partes irrelevantes.
-    mas lembre-se de anotar suas repostas tamb\xE9m.\r\n\r\nEscreva o resumo como
-    se fosse uma nota pessoal do NPC para lembrar o que aconteceu at\xE9 agora. Use
-    frases curtas, diretas, no estilo de t\xF3picos.\r\n\r\nExemplo:\r\n- O jogador
-    contou que foi expulso da col\xF4nia Aurora por questionar a lideran\xE7a.\r\n-
-    Est\xE1 procurando pistas sobre um artefato chamado Prisma Sombrio.\r\n- Pediu
-    ajuda para encontrar um engenheiro chamado Drax.\r\n- Eu respondi que meu maior
-    medo \xE9 perder mais um aluno.\r\n\r\nAgora, por favor, resuma a conversa at\xE9
-    este ponto, nesse caso voc\xEA n\xE3o precisa utilizar o limite de caracteres
-    por p\xE1gina, escreva tudo em apenas uma p\xE1gina s\xF3. Se a \xFAltima mensagem
-    for do sistema falando que o jogador terminou a conversa, Lembre-se de deixar
-    expl\xEDcito como a conversa acabou para que o NPC saiba como voltar a conversar
-    quando o jogador quiser interagir como ele novamente."
+    (NPC) em um jogo. \r\nO que foi conversado at\xE9 agora n\xE3o ser\xE1 enviado
+    novamente. \r\nA partir desta mensagem, quero que voc\xEA gere um resumo conciso
+    da conversa anterior.\r\n\r\nEsse resumo deve servir como uma mem\xF3ria para
+    o NPC, contendo apenas os fatos importantes, inten\xE7\xF5es, decis\xF5es ou
+    sentimentos relevantes que o jogador demonstrou.\r\n\r\nIgnore cumprimentos,
+    piadas ou partes irrelevantes, mas lembre-se de anotar suas pr\xF3prias respostas
+    tamb\xE9m.\r\n\r\nEscreva o resumo como se fosse uma nota pessoal do NPC para
+    lembrar o que aconteceu at\xE9 agora, usando frases curtas, diretas, no estilo
+    de t\xF3picos.\r\n\r\nO resumo deve seguir o formato **JSON padr\xE3o estabelecido
+    anteriormente**, com a seguinte estrutura:\r\n\r\n{\r\n  \"pages\": [\r\n   
+    \"Texto da p\xE1gina 1 (m\xE1ximo 150 caracteres)\",\r\n    \"Texto da p\xE1gina
+    2 (m\xE1ximo 150 caracteres, se necess\xE1rio)\",\r\n    ...\r\n  ],\r\n  \"action\":
+    {\r\n    \"type\": \"none\",\r\n    \"parameters\": {}\r\n  }\r\n}\r\n\r\nInstru\xE7\xF5es
+    espec\xEDficas para este caso:\r\n- Coloque cada t\xF3pico ou pensamento do NPC
+    em uma nova p\xE1gina dentro do array `\"pages\"`.  \r\n- N\xE3o h\xE1 limite
+    de p\xE1ginas, mas mantenha os textos curtos e objetivos.  \r\n- N\xE3o execute
+    nenhuma a\xE7\xE3o \u2014 o campo `\"action\"` deve sempre ter `\"type\": \"none\"`. 
+    \r\n- N\xE3o adicione coment\xE1rios, explica\xE7\xF5es ou qualquer texto fora
+    do JSON.  \r\n- Se a \xFAltima mensagem foi do sistema informando que o jogador
+    encerrou a conversa, adicione um \xFAltimo item nas p\xE1ginas explicando claramente
+    como a conversa terminou, para que o NPC saiba como retomar a intera\xE7\xE3o
+    futuramente.\r"
 --- !u!114 &8858413492907557192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,8 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Guizan.LLM.Embedding.AgentEmbeddingManager
   similarityAccept: 0.45
-  FileEmbeddings:
-  - {fileID: 11400000, guid: d36b4d2967475944f99d288b411614b5, type: 2}
+  fileEmbeddings: []
 --- !u!114 &8472377688448728659
 MonoBehaviour:
   m_ObjectHideFlags: 0
