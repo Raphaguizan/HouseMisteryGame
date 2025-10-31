@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.Player
+namespace Guizan.Player
 {
     public class PlayerFeet : MonoBehaviour
     {

@@ -1,0 +1,49 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Guizan.Player
+{
+    public class PlayerHands : MonoBehaviour
+    {
+        private IInteractable myInteractable;
+        private PlayerMovement myPlayerMovement;
+        private Rigidbody2D myRB;
+        private void Awake()
+        {
+            myPlayerMovement = GetComponentInParent<PlayerMovement>();
+            if(myPlayerMovement != null)
+                myRB = myPlayerMovement.GetComponent<Rigidbody2D>();
+        }
+
+        public void Interact()
+        {
+            if (myInteractable == null)
+                return;
+            myInteractable.Interact();
+        }
+
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            myInteractable = collision.GetComponent<IInteractable>();
+            myInteractable?.OnPointerOver(true);
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            IInteractable colliderInteract = collision.GetComponent<IInteractable>();
+            if (colliderInteract != null && colliderInteract.Equals(myInteractable))
+            {
+                myInteractable.OnPointerOver(false);
+                myInteractable = null;
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if ((myRB.velocity.x > 0 && transform.localPosition.x < 0) || (myRB.velocity.x < 0 && transform.localPosition.x > 0))
+                transform.localPosition = transform.localPosition * new Vector2(-1, 1);
+        }
+    }
+}

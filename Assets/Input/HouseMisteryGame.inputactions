@@ -28,15 +28,24 @@
                     "name": "Fire",
                     "type": "Button",
                     "id": "85a83f3d-b122-4d28-98e4-c58ae76c0b4b",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
                     "name": "Jump",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "fc3d17e0-5520-4123-a043-c5e665643645",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "062ed665-9c7f-46f8-bce7-5cdbf4590883",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -296,6 +305,28 @@
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1f0f5b91-7fef-4445-82c5-9210b1336f14",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ee8d9e33-130b-41a0-bb0c-5f9c0c24b5d1",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -316,7 +347,7 @@
                     "name": "Submit",
                     "type": "Button",
                     "id": "13f8b928-300a-48a5-adec-de58a7a78c32",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -325,7 +356,7 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "3a5b401d-3bf7-4a01-a7cd-6366b4ad00cc",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
