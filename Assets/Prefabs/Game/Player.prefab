@@ -54,7 +54,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 448
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 7946906382847255521}
   - component: {fileID: 1679049808781625752}
   - component: {fileID: 9108666989823075193}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hands
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
@@ -292,10 +292,10 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 257
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -323,7 +323,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.92555404, y: 1.8320851}
+  m_Size: {x: 0.92555404, y: 1.5}
   m_EdgeRadius: 0
 --- !u!114 &9108666989823075193
 MonoBehaviour:
@@ -415,6 +415,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feetDist: 0.1
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 448
 --- !u!58 &3460411627428735756
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ namespace Guizan.Player
     public class PlayerHands : MonoBehaviour
     {
         private IInteractable myInteractable;
+        private GameObject interactableGO;
         private PlayerMovement myPlayerMovement;
         private Rigidbody2D myRB;
         private void Awake()
@@ -26,17 +27,33 @@ namespace Guizan.Player
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            myInteractable = collision.GetComponent<IInteractable>();
-            myInteractable?.OnPointerOver(true);
+            IInteractable colliderInteract = collision.GetComponent<IInteractable>();
+            if (colliderInteract != null && myInteractable != null && !myInteractable.Equals(colliderInteract))
+                IncludeCollision();
+
+            IncludeCollision(collision);
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
             IInteractable colliderInteract = collision.GetComponent<IInteractable>();
-            if (colliderInteract != null && colliderInteract.Equals(myInteractable))
+            if (colliderInteract != null && colliderInteract.Equals(myInteractable))           
+                IncludeCollision();            
+        }
+
+        private void IncludeCollision(Collider2D collision = null)
+        {
+            if (collision != null)
             {
-                myInteractable.OnPointerOver(false);
+                interactableGO = collision.gameObject;
+                myInteractable = collision.GetComponent<IInteractable>();
+                myInteractable?.OnPointerOver(true);
+            }
+            else
+            {
+                myInteractable?.OnPointerOver(false);
                 myInteractable = null;
+                interactableGO = null;
             }
         }
 
