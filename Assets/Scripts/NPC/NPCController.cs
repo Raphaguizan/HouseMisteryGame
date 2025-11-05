@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Guizan.Dialog;
 
 namespace Guizan.NPC
 {
@@ -16,6 +17,7 @@ namespace Guizan.NPC
 
         public void Interact()
         {
+            DialogManager.InitializeDialog(_myConfigs);
             Debug.Log("Interagiu");
         }
 

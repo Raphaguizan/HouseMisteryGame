@@ -3386,7 +3386,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb3ae0524f8ad4448f6e65f8dc957bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogManager: {fileID: 91139601}
   configs: {fileID: 11400000, guid: 3fcb923ebda216843abd75f551825e4a, type: 2}
 --- !u!4 &1849459520
 Transform:

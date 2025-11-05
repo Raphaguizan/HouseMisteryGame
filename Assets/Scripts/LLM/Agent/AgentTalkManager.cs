@@ -58,16 +58,14 @@ namespace Guizan.LLM.Agent
 
         public void EndConversation()
         {
+            inConversation = false;
             if (!inConversation || memoryManager == null || talkMemory.Count == 0)
-            {
-                inConversation = false;
                 return;
-            }
+
             memoryManager.MakeTalkSumary(talkMemory, (sumarymessage) =>
             {
                 memoryManager.AddMemory(sumarymessage);
                 ConversationEndCallBack?.Invoke(sumarymessage);
-                inConversation = false;
             });
         }
 
@@ -80,11 +78,11 @@ namespace Guizan.LLM.Agent
             Message newMessage = new(role, message);
 
             talkMemory.Add(newMessage);
-            List<Message> messages = talkMemory;
+            List<Message> memoriesMessages = talkMemory;
 
             if (memoryManager != null)
             {
-                messages = memoryManager.Memory.Concat(talkMemory).ToList();
+                memoriesMessages = memoryManager.Memory.Concat(talkMemory).ToList();
             }
 
             if (embedding != null)
@@ -96,15 +94,15 @@ namespace Guizan.LLM.Agent
                         {
                             if (!talkMemory.Exists(a => a.content.Equals(msg[i].content)))
                                 talkMemory.Add(msg[i]);
-                            messages.Add(msg[i]);
+                            memoriesMessages.Add(msg[i]);
                         }
                     }
-                    GroqLLM.SendMessageToLLM(messages, ReceiveAnswer);
+                    GroqLLM.SendMessageToLLM(memoriesMessages, ReceiveAnswer);
                 });
                 return;
             }
 
-            GroqLLM.SendMessageToLLM(messages, ReceiveAnswer);
+            GroqLLM.SendMessageToLLM(memoriesMessages, ReceiveAnswer);
         }
 
         private void ReceiveAnswer(ResponseLLM response)

@@ -93,7 +93,7 @@ MonoBehaviour:
     do JSON.  \r\n- Se a \xFAltima mensagem foi do sistema informando que o jogador
     encerrou a conversa, adicione um \xFAltimo item nas p\xE1ginas explicando claramente
     como a conversa terminou, para que o NPC saiba como retomar a intera\xE7\xE3o
-    futuramente.\r"
+    futuramente.\r\n- Eu quero um **resumo** e n\xE3o tudo que foi dito na conversa."
 --- !u!114 &8858413492907557192
 MonoBehaviour:
   m_ObjectHideFlags: 0

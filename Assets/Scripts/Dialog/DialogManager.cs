@@ -1,17 +1,15 @@
 using Guizan.LLM.Agent;
 using Guizan.LLM.Embedding;
 using Guizan.NPC;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Game.Util;
 
 namespace Guizan.Dialog
 {
-    public class DialogManager : MonoBehaviour
+    public class DialogManager : Singleton<DialogManager>
     {
         [SerializeField]
         private AgentDialogManager agentManager;
@@ -28,7 +26,9 @@ namespace Guizan.Dialog
         private Button exitButton;
 
         [SerializeField]
-        private GameObject graphics; 
+        private GameObject graphics;
+
+        public static bool Initialized => Instance.graphics.activeInHierarchy;
 
         private void OnEnable()
         {
@@ -45,23 +45,24 @@ namespace Guizan.Dialog
                 SendMessage();
         }
 
-        public void InitializeDialog(NPCConfigs npc)
+        public static void InitializeDialog(NPCConfigs npc, string initialMessage = "Olá!")
         {
-            if (npc == null)
+            if (npc == null || Initialized)
                 return;
 
-            talkManager.StartConversation();
-            graphics.SetActive(true);
+            Instance.talkManager.StartConversation();
+            Instance.graphics.SetActive(true);
 
-            GameObject agentGO = talkManager.gameObject;
+            GameObject agentGO = Instance.talkManager.gameObject;
             if (agentGO.TryGetComponent<AgentMemoryManager>(out AgentMemoryManager memoryManager))
                 memoryManager.SetMemory(npc.agentLLMMemory, npc.permanentMemories);
 
             if (agentGO.TryGetComponent<AgentEmbeddingManager>(out AgentEmbeddingManager fileEmbeddings))
                 fileEmbeddings.SetFileEmbeddings(npc.fileEmbeddings);
 
-            agentManager.InitializeDialog(npc.dialogImage);
-            agentManager.ReceiveAnswer(new() { "Olá, como posso ajudar?" });
+            Instance.agentManager.InitializeDialog(npc.dialogImage);
+            //Instance.agentManager.ReceiveAnswer(new() { "Olá, como posso ajudar?" });
+            Instance.talkManager.SendMessage(initialMessage, callback: (pages) => Instance.agentManager.ReceiveAnswer(pages));
         }
 
         private void SendMessage()
@@ -73,10 +74,13 @@ namespace Guizan.Dialog
             textArea.text = string.Empty;
         }
 
-        public void EndConversation()
+        public static void EndConversation()
         {
-            talkManager.EndConversation();
-            graphics.SetActive(false);
+            if (!Initialized)
+                return;
+
+            Instance.talkManager.EndConversation();
+            Instance.graphics.SetActive(false);
         }
 
         private void OnDisable()

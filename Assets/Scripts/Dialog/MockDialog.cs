@@ -7,8 +7,6 @@ using Guizan.NPC;
 
 public class MockDialog : MonoBehaviour
 {
-    [SerializeField]
-    private DialogManager dialogManager;
 
     [SerializeField]
     private NPCConfigs configs;
@@ -17,7 +15,7 @@ public class MockDialog : MonoBehaviour
     [Button]
     public void StartDialog()
     {
-        dialogManager.gameObject.SetActive(true);
-        dialogManager.InitializeDialog(configs);
+        
+        DialogManager.InitializeDialog(configs);
     }
 }

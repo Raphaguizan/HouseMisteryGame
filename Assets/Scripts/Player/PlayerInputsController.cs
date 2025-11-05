@@ -1,3 +1,4 @@
+using Guizan.LLM.Agent;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,20 +15,43 @@ namespace Guizan.Player
         [SerializeField]
         private PlayerHands hands;
 
-        private void OnMove(InputValue action)
+        private AgentTalkManager talkManager;
+        private void Awake()
         {
+            talkManager = FindAnyObjectByType<AgentTalkManager>();
+        }
+
+        private bool VerifyCanWalk()
+        {
+            if (talkManager == null)
+                return true;
+
+            return !talkManager.InConversation;
+        }
+
+        public void OnMove(InputValue action)
+        {
+            if (!VerifyCanWalk())
+                return;
+
             Vector2 vec = action.Get<Vector2>();
             movement.Move(vec);
         }
 
-        private void OnJump(InputValue action)
+        public void OnJump(InputValue action)
         {
+            if (!VerifyCanWalk())
+                return;
+
             bool val = action.isPressed;
             movement.Jump(val);
         }
 
-        private void OnInteract(InputValue action)
+        public void OnInteract()
         {
+            if (!VerifyCanWalk())
+                return;
+
             hands.Interact();
         }
     }
