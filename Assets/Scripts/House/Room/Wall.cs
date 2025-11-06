@@ -6,6 +6,7 @@ namespace Guizan.House.Room
 {
     public class Wall : MonoBehaviour
     {
+        [SerializeField]
         private WallType type;
 
         public WallType Type => type;
