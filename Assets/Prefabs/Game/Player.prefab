@@ -48,13 +48,13 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 856950328859998336}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 53e90e64f22616a46b111f2020061f48, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 448
+    m_Bits: 320
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -160,7 +160,7 @@ MonoBehaviour:
   rb: {fileID: 3107070967785845263}
   feet: {fileID: 2950274436147940276}
   speed: 5
-  accelerationFactor: 0.8
+  accelerationFactor: 1
   jumpForce: 20
   downForce: 20
 --- !u!1 &920781860561635755
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 9108666989823075193}
   m_Layer: 9
   m_Name: Hands
-  m_TagString: Player
+  m_TagString: PlayerHands
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -395,7 +395,7 @@ GameObject:
   - component: {fileID: 3460411627428735756}
   m_Layer: 6
   m_Name: feet
-  m_TagString: Player
+  m_TagString: PlayerFeet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -409,7 +409,7 @@ Transform:
   m_GameObject: {fileID: 9116933084948900495}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.032, z: 0}
+  m_LocalPosition: {x: 0, y: -0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -427,7 +427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 301754974ee86aa4ba35a7d014c9ab88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  feetDist: 0.1
+  feetDist: 0.3
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 448
@@ -440,13 +440,13 @@ CircleCollider2D:
   m_GameObject: {fileID: 9116933084948900495}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 64c1b563937304f4a9d7d6d2a63e6de7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1152
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -463,6 +463,6 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.46}
+  m_Offset: {x: 0, y: 0.35}
   serializedVersion: 2
-  m_Radius: 0.45
+  m_Radius: 0.46591216

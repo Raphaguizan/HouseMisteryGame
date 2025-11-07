@@ -24,18 +24,20 @@ namespace Guizan.House.Room
         private void Awake()
         {
             my_poligon = GetComponent<PolygonCollider2D>();
-        }
+        }        
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerStay2D(Collider2D collision)
         {
-            if (collision.CompareTag(playerTag))
-                vCamera.SetActive(true);
+            if (!collision.CompareTag(playerTag)) return;
+
+            vCamera.SetActive(true);
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            if (collision.CompareTag(playerTag))
-                vCamera.SetActive(false);
+            if (!collision.CompareTag(playerTag)) return; 
+            
+            vCamera.SetActive(false);
         }
     }
 }

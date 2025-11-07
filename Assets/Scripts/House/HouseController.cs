@@ -92,22 +92,19 @@ namespace Guizan.House
             RoomController current = roonsMatrix[x1, y1];
             RoomController neighbor = roonsMatrix[x2, y2];
             WallType randomType = WallType.Door;
+
+            if (Random.value < ChanceToDoorOpen)
+                randomType = WallType.Door2;
             // Determina a direção da conexão
             if (x2 > x1)
             {
                 // vizinho à direita
-                if (Random.value < ChanceToDoorOpen)
-                    randomType = WallType.None;
-
                 current.ChangeWallType(WallSide.Right, randomType);
                 neighbor.ChangeWallType(WallSide.Left, randomType);
             }
             else if (x2 < x1)
             {
                 // vizinho à esquerda
-                if (Random.value < ChanceToDoorOpen)
-                    randomType = WallType.None;
-
                 current.ChangeWallType(WallSide.Left, randomType);
                 neighbor.ChangeWallType(WallSide.Right, randomType);
             }
@@ -131,7 +128,7 @@ namespace Guizan.House
             {
                 for (int y = 0; y < matrixDim.y; y++)
                 {
-                    if (roonsMatrix[x, y].GetWallType(WallSide.Right) == WallType.None)
+                    if (roonsMatrix[x, y].GetWallType(WallSide.Right) == WallType.Door2)
                     {
                         int xIndex = x;
                         while(!roonsMatrix[xIndex, y].HasCollider)
@@ -194,7 +191,7 @@ namespace Guizan.House
         private WallType GenerateHorizontalWallType()
         {
             float r = Random.value;
-            if (r < 0.2f) return WallType.None; // 20% sem parede (salas unidas)
+            if (r < 0.2f) return WallType.Door2; // 20% sem parede (salas unidas)
             if (r < 0.6f) return WallType.Door; // 40% porta
             return WallType.Full;                // 40% parede sólida
         }

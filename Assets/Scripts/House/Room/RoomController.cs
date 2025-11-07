@@ -8,9 +8,9 @@ namespace Guizan.House.Room
 {
     public enum WallType
     {
-        None,
-        Full,
-        Door
+        Door,
+        Door2,
+        Full
     }
 
     public enum WallSide
