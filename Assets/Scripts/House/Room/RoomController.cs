@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Guizan.House.Room
 {
@@ -109,6 +111,43 @@ namespace Guizan.House.Room
         public WallType GetWallType(WallSide side)
         {
             return GetHandler(side).WallType;
+        }
+
+        public int CountDoors(Nullable<WallType> type = null)
+        {
+            int resp = 0;
+            if (type == null)
+            {
+                resp += GetDoorsSide(WallType.Door).Count;
+                resp += GetDoorsSide(WallType.Door2).Count;
+                return resp;
+            }
+
+            return GetDoorsSide(type.Value).Count;
+        }
+
+        public List<WallSide> GetDoorsSide()
+        {
+            List<WallSide>  resp = GetDoorsSide(WallType.Door);
+            resp.AddRange(GetDoorsSide(WallType.Door2));
+
+            return resp;
+        }
+
+        public List<WallSide> GetDoorsSide(WallType type)
+        {
+            List<WallSide> resp = new();
+
+            if (leftWallHandler.WallType == type)
+                resp.Add(WallSide.Left);
+            if (rightWallHandler.WallType == type)
+                resp.Add(WallSide.Right);
+            if (floorHandler.WallType == type)
+                resp.Add(WallSide.Floor);
+            if (ceilingHandler.WallType == type)
+                resp.Add(WallSide.Ceiling);
+
+            return resp;
         }
 
         private WallHandler GetHandler(WallSide side)

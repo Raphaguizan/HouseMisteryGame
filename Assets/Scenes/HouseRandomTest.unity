@@ -505,11 +505,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 4546778571518768371, guid: c9f8fd7f8540675439f2ea929e8a477a, type: 3}
   roonsParent: {fileID: 1190128399}
-  matrixDim: {x: 10, y: 10}
+  matrixDim: {x: 5, y: 5}
   horizontalDist: 24.2
   verticalDist: 9.2
-  ChanceToDoorOpen: 0.25
-  horizontalBias: 0.75
+  ChanceToDoor2: 0.2
+  horizontalBias: 0.8
+  extraDoorPercentage: 0.2
 --- !u!1 &1623556337
 GameObject:
   m_ObjectHideFlags: 0

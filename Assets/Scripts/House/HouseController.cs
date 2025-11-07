@@ -1,4 +1,6 @@
 ﻿using Guizan.House.Room;
+using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,12 +20,15 @@ namespace Guizan.House
         [SerializeField]
         private float verticalDist;
         [Space, SerializeField, Range(0f,1f)]
-        private float ChanceToDoorOpen = .2f;
+        private float ChanceToDoor2 = .2f;
         [SerializeField, Range(0f,1f)]
         private float horizontalBias = .75f;
+        [SerializeField, Range(0f,1f)]
+        private float extraDoorPercentage = .2f;
 
         private RoomController[,] roonsMatrix;
         private System.Random rand = new System.Random();
+        private Nullable<Vector2Int> secretRoom = null;
 
         void Start()
         {            
@@ -47,10 +52,47 @@ namespace Guizan.House
 
             // Começa DFS de geração
             bool[,] visited = new bool[matrixDim.x, matrixDim.y];
+
             DFSGenerate(0, 0, visited);
+            ChooseSecretRoom();
+            AddExtraDoors();
             AdjustCamerasBounds();
 
             Debug.Log("Mapa gerado com sucesso e totalmente conectado!");
+        }
+
+        private void ChooseSecretRoom()
+        {
+            List<Vector2Int> oneDoorRoons = new();
+            List<Vector2Int> oneDoorRoonsHorizontal = new();
+
+            for (int x = 0;x < matrixDim.x; x++)
+                for(int y = 0;y < matrixDim.y; y++)
+                    if(roonsMatrix[x, y].CountDoors() == 1 && !(x == 0 && y == 0))
+                        oneDoorRoons.Add(new(x, y));
+
+            for (int i = 0; i < oneDoorRoons.Count; i++)
+            {
+                RoomController myRoom = roonsMatrix[oneDoorRoons[i].x, oneDoorRoons[i].y];
+                WallSide doorSide = myRoom.GetDoorsSide()[0];
+                if (doorSide == WallSide.Left || doorSide == WallSide.Right)
+                    oneDoorRoonsHorizontal.Add(oneDoorRoons[i]);
+            }
+
+            if(oneDoorRoonsHorizontal.Count > 0)
+            {
+                secretRoom = oneDoorRoonsHorizontal[rand.Next(oneDoorRoonsHorizontal.Count)];
+                RoomController myRoom = roonsMatrix[secretRoom.Value.x, secretRoom.Value.y];
+                myRoom.name += " S";
+
+                WallSide doorSide = myRoom.GetDoorsSide()[0];
+                myRoom.ChangeWallType(doorSide, WallType.Door);
+
+                //Debug.Log($"ChoosenRoom = ({secretRoom.Value.x},{secretRoom.Value.y})");
+            }
+
+            if (!secretRoom.HasValue)
+                Debug.LogWarning("Não foi gerado um quarto secreto!");
         }
 
         private void DFSGenerate(int x, int y, bool[,] visited)
@@ -93,7 +135,7 @@ namespace Guizan.House
             RoomController neighbor = roonsMatrix[x2, y2];
             WallType randomType = WallType.Door;
 
-            if (Random.value < ChanceToDoorOpen)
+            if (UnityEngine.Random.value < ChanceToDoor2)
                 randomType = WallType.Door2;
             // Determina a direção da conexão
             if (x2 > x1)
@@ -141,77 +183,6 @@ namespace Guizan.House
             }
         }
 
-        private void GenerateWalls()
-        {
-            for (int x = 0; x < matrixDim.x; x++)
-            {
-                for (int y = 0; y < matrixDim.y; y++)
-                {
-                    RoomController room = roonsMatrix[x, y];
-
-                    // 🔹 Determina o estado de cada parede
-                    WallType left = WallType.Full;
-                    WallType right = WallType.Full;
-                    WallType floor = WallType.Full;
-                    WallType ceiling = WallType.Full;
-
-                    // --- PAREDE ESQUERDA ---
-                    if (x != 0)                    
-                    {
-                        // usa o mesmo estado da parede direita do cômodo anterior
-                        RoomController leftNeighbor = roonsMatrix[x - 1, y];
-                        left = leftNeighbor == null ? WallType.Full : leftNeighbor.GetWallType(WallSide.Right);
-                    }
-
-                    // --- PAREDE DIREITA ---
-                    if (x < matrixDim.x - 1)
-                    {
-                        // decide se há passagem (None, Door, Full)
-                        right = GenerateHorizontalWallType();
-                    }
-
-                    // --- PISO ---
-                    if (y != 0)
-                    {
-                        RoomController below = roonsMatrix[x, y - 1];
-                        floor = below == null ? WallType.Full : below.GetWallType(WallSide.Ceiling);       
-                    }
-
-                    // --- TETO ---
-                    if (y < matrixDim.y - 1)
-                    {
-                        ceiling = GenerateVerticalWallType();
-                    }
-
-                    room.ConfigureRoom(left, right, floor, ceiling);
-                }
-            }
-        }
-
-        private WallType GenerateHorizontalWallType()
-        {
-            float r = Random.value;
-            if (r < 0.2f) return WallType.Door2; // 20% sem parede (salas unidas)
-            if (r < 0.6f) return WallType.Door; // 40% porta
-            return WallType.Full;                // 40% parede sólida
-        }
-        private WallType GenerateVerticalWallType()
-        {
-            float r = Random.value;
-            if (r < 0.3f) return WallType.Door; // 30% chance de escada
-            return WallType.Full;
-        }
-
-        private void Shuffle<T>(IList<T> list)
-        {
-            int n = list.Count;
-            while (n > 1)
-            {
-                n--;
-                int k = rand.Next(n + 1);
-                (list[k], list[n]) = (list[n], list[k]);
-            }
-        }
         private void ShuffleDirections(List<Vector2Int> directions)
         {
             // horizontalBias: 0.0 = só verticais, 1.0 = só horizontais
@@ -248,5 +219,74 @@ namespace Guizan.House
             directions.Clear();
             directions.AddRange(newOrder);
         }
+
+        private void AddExtraDoors()
+        {
+            int width = matrixDim.x;
+            int height = matrixDim.y;
+            int totalRooms = width * height;
+            int targetExtras = Mathf.RoundToInt(totalRooms * extraDoorPercentage);
+
+            List<Vector2Int> roomPositions = new List<Vector2Int>();
+            for (int x = 0; x < width; x++)
+                for (int y = 0; y < height; y++)
+                    if(!secretRoom.HasValue || new Vector2Int(x, y) != secretRoom.Value)
+                        roomPositions.Add(new Vector2Int(x, y));
+
+            // Embaralha a lista de salas
+            for (int i = 0; i < roomPositions.Count; i++)
+            {
+                int r = rand.Next(i, roomPositions.Count);
+                (roomPositions[i], roomPositions[r]) = (roomPositions[r], roomPositions[i]);
+            }
+
+            int added = 0;
+
+            foreach (var pos in roomPositions)
+            {
+                if (added >= targetExtras)
+                    break;
+
+                RoomController current = roonsMatrix[pos.x, pos.y];
+
+                // Lista de direções possíveis para abrir nova porta
+                List<Vector2Int> possibleDirs = new List<Vector2Int>();
+
+                // CIMA
+                if (pos.y < height - 1 && current.GetWallType(WallSide.Ceiling) == WallType.Full && (!secretRoom.HasValue || new Vector2Int(pos.x, pos.y + 1) != secretRoom.Value))
+                    possibleDirs.Add(Vector2Int.up);
+
+                // BAIXO
+                if (pos.y > 0 && current.GetWallType(WallSide.Floor) == WallType.Full && (!secretRoom.HasValue || new Vector2Int(pos.x, pos.y - 1) != secretRoom.Value))
+                    possibleDirs.Add(Vector2Int.down);
+
+                // DIREITA
+                if (pos.x < width - 1 && current.GetWallType(WallSide.Right) == WallType.Full && (!secretRoom.HasValue || new Vector2Int(pos.x + 1, pos.y) != secretRoom.Value))
+                    possibleDirs.Add(Vector2Int.right);
+
+                // ESQUERDA
+                if (pos.x > 0 && current.GetWallType(WallSide.Left) == WallType.Full && (!secretRoom.HasValue || new Vector2Int(pos.x - 1, pos.y) != secretRoom.Value))
+                    possibleDirs.Add(Vector2Int.left);
+
+                if (possibleDirs.Count == 0)
+                    continue;
+
+                // Escolhe uma direção aleatória
+                Vector2Int dir = possibleDirs[rand.Next(possibleDirs.Count)];
+                int nx = pos.x + dir.x;
+                int ny = pos.y + dir.y;
+
+
+                RoomController neighbor = roonsMatrix[nx, ny];
+
+                //Debug.Log($"adicionando porta em ({pos.x},{pos.y}) para o quarto ({nx},{ny})");
+                OpenPassage(pos.x, pos.y, nx, ny);
+               
+                added++;
+            }
+
+            Debug.Log($"Adicionadas {added} portas extras ({extraDoorPercentage * 100f}%).");
+        }
+
     }
 }
