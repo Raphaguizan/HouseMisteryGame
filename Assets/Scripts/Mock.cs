@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Mock : MonoBehaviour
 {
-    public PlayerInventoryController my;
+    public PlayerInventoryBinder my;
     public string itemName = "Item1";
     public int itemQty = 1;
     // Start is called before the first frame update

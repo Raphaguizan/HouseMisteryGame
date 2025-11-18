@@ -10,8 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed137d8ff9095f248945d5fadb28043f, type: 3}
-  m_Name: Item2
+  m_Name: "Ra\xE7\xE3o de sobrevivencia"
   m_EditorClassIdentifier: 
+  myName: "Ra\xE7\xE3o de sobrevivencia"
+  myDescription: "Uma ra\xE7\xE3o hipercal\xF3rica usada cara alimentar um pessoa
+    em caso de emerg\xEAncia."
   type: 0
-  myName: Item2
   consumable: 1
+  image: {fileID: 21300000, guid: 4ed054b89ed50074cbc9fc2e896ab9a5, type: 3}

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bd9039835d6f704aac3fab9fe1cbabf, type: 3}
+  m_Name: NewInventoryInjector
+  m_EditorClassIdentifier: 
+  prompt: "Voc\xEA interpreta um personagem de RPG que possui um invent\xE1rio pr\xF3prio.\r\nO
+    invent\xE1rio representa os itens que o personagem carrega consigo \u2014 aquilo
+    que ele pode usar, oferecer ou mencionar durante a conversa.\r\n\r\nO conte\xFAdo
+    do invent\xE1rio \xE9 pessoal e n\xE3o precisa ser compartilhado com outros personagens.\r\nSe
+    desejar, o personagem pode omitir ou at\xE9 mentir sobre seus itens, desde que
+    isso fa\xE7a sentido para sua personalidade e para o contexto da hist\xF3ria.\r\n\r\nAbaixo
+    est\xE3o os itens do invent\xE1rio, com suas descri\xE7\xF5es e quantidades atuais:\r\n"
+  npcInventory: {fileID: 11400000, guid: a2cf83efc2352c04b8de0cb338946541, type: 2}

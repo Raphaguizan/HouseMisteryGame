@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Guizan.Player.Inventory
 {
-    public class PlayerInventoryController : MonoBehaviour
+    public class PlayerInventoryBinder : MonoBehaviour
     {
         [SerializeField, Expandable]
         private Item.Inventory myInventory;

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Guizan.House
 {
-    public class HouseController : MonoBehaviour
+    public class HouseManager : MonoBehaviour
     {
         [SerializeField]
         private GameObject roomPrefab;

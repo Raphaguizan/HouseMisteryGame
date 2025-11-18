@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,16 +16,19 @@ namespace Guizan.Item
     public class ItemBase : ScriptableObject
     {
         [SerializeField]
-        private ItemType type = ItemType.Default;
-        [SerializeField]
         private string myName = "item";
+        [SerializeField, ResizableTextArea]
+        private string myDescription = "É um item comum";
+        [SerializeField]
+        private ItemType type = ItemType.Default;
         [SerializeField]
         private bool consumable = false;
         [SerializeField]
         private Sprite image;
 
-        public ItemType Type => type;
         public string ItemName => myName;
+        public string Description => myDescription;
+        public ItemType Type => type;
         public bool Consumable => consumable;
         public Sprite Image => image;
 

@@ -10,8 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed137d8ff9095f248945d5fadb28043f, type: 3}
-  m_Name: Item1
+  m_Name: "Ma\xE7\xE3 Envenenada"
   m_EditorClassIdentifier: 
+  myName: "Ma\xE7\xE3 envenenada"
+  myDescription: "Uma ma\xE7\xE3 com um poedroso veneno que poeria matar em instantes
+    quem a morder."
   type: 0
-  myName: Item1
-  consumable: 0
+  consumable: 1
+  image: {fileID: 21300000, guid: e8c299a4dc914b248a67abcab6db9286, type: 3}

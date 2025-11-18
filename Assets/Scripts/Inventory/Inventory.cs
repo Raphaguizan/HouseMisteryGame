@@ -15,6 +15,8 @@ namespace Guizan.Item
         [SerializeField]
         private List<InventoryItem> itemsList;
 
+        public List<InventoryItem> FullList => itemsList;
+
         public void InitializeIventory()
         {
             // Load do inventário quando fizer o save

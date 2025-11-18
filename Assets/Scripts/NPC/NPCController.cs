@@ -18,7 +18,7 @@ namespace Guizan.NPC
         public void Interact()
         {
             DialogManager.InitializeDialog(_myConfigs);
-            Debug.Log("Interagiu");
+            //Debug.Log("Interagiu");
         }
 
         public void OnPointerOver(bool val)

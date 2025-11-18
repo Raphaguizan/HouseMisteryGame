@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed137d8ff9095f248945d5fadb28043f, type: 3}
-  m_Name: Item3
+  m_Name: ChaveTeste
   m_EditorClassIdentifier: 
-  type: 0
-  myName: Item3
-  consumable: 1
+  myName: Chave do quarto
+  myDescription: "\xC9 uma chave comum que abre a porta do quarto do Personagem Thorgar."
+  type: 1
+  consumable: 0
+  image: {fileID: 21300000, guid: e3dc68783919341458e70e2a3ed5ebc1, type: 3}
