@@ -22,7 +22,7 @@ namespace Guizan.LLM.Agent
         private AgentEmbeddingManager embedding;
         private AgentActionsManager actionsManager;
 
-        private Action<List<string>> responseCallBack;
+        private Action<List<string>, List<AgentEmoticons>> responseCallBack;
         
         private bool inConversation;
 
@@ -58,18 +58,20 @@ namespace Guizan.LLM.Agent
 
         public void EndConversation()
         {
-            inConversation = false;
             if (!inConversation || memoryManager == null || talkMemory.Count == 0)
                 return;
 
             memoryManager.MakeTalkSumary(talkMemory, (sumarymessage) =>
             {
-                memoryManager.AddMemory(sumarymessage);
+                if(!sumarymessage.content.Trim().Equals("[NONE]"))
+                    memoryManager.AddMemory(sumarymessage);
+
                 ConversationEndCallBack?.Invoke(sumarymessage);
             });
+            inConversation = false;
         }
 
-        public void SendMessage(string message, MessageRole role = MessageRole.user, Action<List<string>> callback = null)
+        public void SendMessage(string message, MessageRole role = MessageRole.user, Action<List<string>, List<AgentEmoticons>> callback = null)
         {
             if (!inConversation)
                 StartConversation();
@@ -105,25 +107,29 @@ namespace Guizan.LLM.Agent
             GroqLLM.SendMessageToLLM(memoriesMessages, ReceiveAnswer);
         }
 
-        private void ReceiveAnswer(ResponseLLM response)
+        private void ReceiveAnswer(ResponseLLM responseLLM)
         {
-            Debug.Log("Receive:\n"+response.FullResponse);
+            Debug.Log("Receive:\n"+responseLLM.FullResponse);
+            TalkResponseLLM response = new(responseLLM);
+
             List<string> pages = new();
+            List<AgentEmoticons> emoticons = new();
             if(response.type == ResponseType.Error)
             {
                 Debug.LogError(defaultMessage);  
                 pages.Add(defaultMessage);
-                EndConversation();
+                //EndConversation();
             } 
             else 
             {
                 talkMemory.Add(new(MessageRole.assistant, response.GetFullText()));
                 pages = response.Pages;
+                emoticons = response.Emoticons;
                 if (actionsManager != null && response.Action.Type != "none")
                     actionsManager.MakeAction(response.Action);
             }
 
-            responseCallBack?.Invoke(pages);
+            responseCallBack?.Invoke(pages, emoticons);
             responseCallBack = null;
         }
     }

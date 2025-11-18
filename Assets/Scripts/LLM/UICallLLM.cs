@@ -99,7 +99,7 @@ public class UICallLLM : MonoBehaviour
         if (!val) inputField.text = "";
     }
 
-    private void PrintLLMAnswer(List<string> resp)
+    private void PrintLLMAnswer(List<string> resp, List<AgentEmoticons> emog)
     {
         Debug.Log("recebi:\n" + resp[0]);
         string text = "";

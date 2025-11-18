@@ -8,11 +8,20 @@ namespace Guizan.LLM.Agent
     public class AgentActionsManager : MonoBehaviour
     {
         [SerializeField]
-        private List<AgentAction> actionSubscribe = new();
+        private List<AgentActionBinder> actionSubscribe = new();
 
-
-        public void Subscribe(AgentAction action)
+        public void SetList(List<AgentActionBinder> newActionList)
         {
+            actionSubscribe.Clear();
+            actionSubscribe = newActionList;
+        }
+        public void Subscribe(AgentActionBinder action)
+        {
+            if(actionSubscribe.Exists(act => act.Type == action.Type))
+            {
+                Debug.LogWarning("Já exite uma ação desse tipo ("+action.Type+") cadastrada");
+                return;
+            }
             actionSubscribe.Add(action);
         }
 

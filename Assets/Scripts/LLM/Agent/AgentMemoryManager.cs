@@ -57,6 +57,11 @@ namespace Guizan.LLM.Agent
             AddMemory(new(role, content));
         }
 
+        public void RemoveAt(int index)
+        {
+            myMemory.RemoveAt(index);
+        }
+
         private void InjectPermanentMemory()
         {
             for (int i = 0; i < permanentMemoriesList.Count; i++)
@@ -69,7 +74,7 @@ namespace Guizan.LLM.Agent
         private int memoryTotalLenght = 50;
 
         [SerializeField, ResizableTextArea, Foldout("Memory Sumarize")]
-        private string sumaryPrompt = "Você está interagindo com um jogador por meio de um personagem (NPC) em um jogo. \r\nO que foi conversado até agora não será enviado novamente. \r\nA partir desta mensagem, quero que você gere um resumo conciso da conversa anterior.\r\n\r\nEsse resumo deve servir como uma memória para o NPC, contendo apenas os fatos importantes, intenções, decisões ou sentimentos relevantes que o jogador demonstrou.\r\n\r\nIgnore cumprimentos, piadas ou partes irrelevantes, mas lembre-se de anotar suas próprias respostas também.\r\n\r\nEscreva o resumo como se fosse uma nota pessoal do NPC para lembrar o que aconteceu até agora, usando frases curtas, diretas, no estilo de tópicos.\r\n\r\nO resumo deve seguir o formato **JSON padrão estabelecido anteriormente**, com a seguinte estrutura:\r\n\r\n{\r\n  \"pages\": [\r\n    \"Texto da página 1 (máximo 150 caracteres)\",\r\n    \"Texto da página 2 (máximo 150 caracteres, se necessário)\",\r\n    ...\r\n  ],\r\n  \"action\": {\r\n    \"type\": \"none\",\r\n    \"parameters\": {}\r\n  }\r\n}\r\n\r\nInstruções específicas para este caso:\r\n- Coloque cada tópico ou pensamento do NPC em uma nova página dentro do array `\"pages\"`.  \r\n- Não há limite de páginas, mas mantenha os textos curtos e objetivos.  \r\n- Não execute nenhuma ação — o campo `\"action\"` deve sempre ter `\"type\": \"none\"`.  \r\n- Não adicione comentários, explicações ou qualquer texto fora do JSON.  \r\n- Se a última mensagem foi do sistema informando que o jogador encerrou a conversa, adicione um último item nas páginas explicando claramente como a conversa terminou, para que o NPC saiba como retomar a interação futuramente.\r\n- Eu quero um **resumo** e não tudo que foi dito na conversa.";
+        private string sumaryPrompt = "Você está interagindo com um jogador por meio de um personagem (NPC) em um jogo. \r\nO que foi conversado até agora não será enviado novamente. \r\nA partir desta mensagem, quero que você gere um resumo conciso da conversa anterior.\r\n\r\nEsse resumo deve servir como uma memória para o NPC, contendo apenas os fatos importantes, intenções, decisões ou sentimentos relevantes que o jogador demonstrou.\r\n\r\nIgnore cumprimentos, piadas ou partes irrelevantes, mas lembre-se de anotar suas próprias respostas também.\r\n\r\nEscreva o resumo como se fosse uma nota pessoal do NPC para lembrar o que aconteceu até agora, usando frases curtas, diretas, que expressem os sentimentos do seu personagem com cada acontecimento para que possa ser usado no futuro. pode ser feito em tópicos também.\r\n\r\nO resumo deve ser respondido apenas em texto sem nada escrito além do resumo, sem JSON só o texto do resumo.\r\n\r\nInstruções específicas para este caso:      \r\n- Não adicione comentários, explicações ou qualquer texto além do texto de resumo.  \r\n- Se a última mensagem foi do sistema informando que o jogador encerrou a conversa, adicione um último item nos tópicos ou uma ultima linha no texto explicando claramente como a conversa terminou, para que o NPC saiba como retomar a interação futuramente.\r\n- Eu quero um **resumo** e não tudo que foi dito na conversa.";
 
         private Message lastAssistantMessage = null;
 
@@ -91,7 +96,7 @@ namespace Guizan.LLM.Agent
         public void MakeTalkSumary(List<Message> talkMemory, Action<Message> onSumaryCallback)
         {
             talkMemory.Add(new(MessageRole.user, sumaryPrompt));
-            GroqLLM.SendMessageToLLM(talkMemory, (response) => onSumaryCallback?.Invoke(new(MessageRole.system, response.GetFullText())));
+            GroqLLM.SendMessageToLLM(talkMemory, (response) => onSumaryCallback?.Invoke(new(MessageRole.system, response.FullResponse)));
         }
 
         /// <summary>
@@ -103,6 +108,7 @@ namespace Guizan.LLM.Agent
         public void MakeMemorySumary(string resumeMessage)
         {
             AddMemory(MessageRole.system, resumeMessage);
+            RemoveAt(0);
             SumarizeMemory(false);
         }
 
@@ -118,7 +124,7 @@ namespace Guizan.LLM.Agent
         private void ReceiveSumary(ResponseLLM response)
         {
             myMemory.ResetMemories();
-            AddMemory(new(MessageRole.system, response.GetFullText()));
+            AddMemory(new(MessageRole.system, response.FullResponse));
 
             if (lastAssistantMessage != null)
                 AddMemory(lastAssistantMessage);
@@ -165,7 +171,7 @@ namespace Guizan.LLM.Agent
                 return;
 
             var newMemory = AgentJSONSaver<List<Message>>.LoadJSON(myMemory.ID, SavePathFolder.npc_Memory);
-            if (newMemory == default)
+            if (newMemory == default || newMemory.Count < permanentMemoriesList.Count)
                 InjectPermanentMemory();
         }
 

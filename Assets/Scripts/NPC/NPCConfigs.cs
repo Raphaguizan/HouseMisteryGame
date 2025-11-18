@@ -1,20 +1,34 @@
 using Guizan.LLM;
 using Guizan.LLM.Agent;
+using Guizan.LLM.Agent.Actions;
 using Guizan.LLM.Embedding;
 using NaughtyAttributes;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Guizan.NPC
 {
-    [CreateAssetMenu(menuName ="NPC/configs", fileName ="newNPCConfig")]
+    [CreateAssetMenu(menuName = "NPC/configs", fileName = "newNPCConfig")]
     public class NPCConfigs : ScriptableObject
     {
-        public Sprite dialogImage;
-        [Expandable]
-        public AgentMemory agentLLMMemory;
-        public List<PermanentMemory> permanentMemories;
-        public List<FileEmbedding> fileEmbeddings;
+        [SerializeField]
+        private List<Sprite> dialogEmoticonsImages;
+        [SerializeField, Expandable]
+        private AgentMemory agentLLMMemory;
+        [SerializeField]
+        private List<PermanentMemory> permanentMemories;
+        [SerializeField]
+        private List<FileEmbedding> fileEmbeddings;
+        [SerializeField, Expandable]
+        private List<TalkInjectorBinder> talkInjectors;
+        [SerializeField, Expandable]
+        private List<AgentActionBinder> agentActions;
+
+        public List<Sprite> DialogEmoticonsImg => dialogEmoticonsImages;
+        public AgentMemory AgentLLMMemory => agentLLMMemory;
+        public List<PermanentMemory> PermanentMemories => permanentMemories;
+        public List<FileEmbedding> FileEmbeddings => fileEmbeddings;
+        public List<TalkInjectorBinder> TalkInjectors => talkInjectors;
+        public List<AgentActionBinder> AgentActions => agentActions;
     }
 }

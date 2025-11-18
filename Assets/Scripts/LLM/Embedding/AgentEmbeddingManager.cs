@@ -63,7 +63,7 @@ namespace Guizan.LLM.Embedding
                 fileEmb.GetEmbeddings((embeddings) =>
                 {
                     var (index, score) = EmbeddingUtils.GetMostSimilarEmbedding(agentEmb.Embeddings[0], embeddings);
-                    Debug.Log($"score : {score}  Index : {index}\n\ntexto:\n{agentEmb.TextChunks[0]}");
+                    //Debug.Log($"score : {score}  Index : {index}\n\ntexto:\n{agentEmb.TextChunks[0]}");
                     if (score > similarityAccept)
                     {
                         AddEmbeddingMemory(MakeSystemPrompt(embeddings, index));

@@ -28,7 +28,7 @@ namespace Guizan.Dialog
         [SerializeField]
         private GameObject graphics;
 
-        public static bool Initialized => Instance.graphics.activeInHierarchy;
+        public static bool Initialized => Instance.graphics.activeInHierarchy || Instance.talkManager.InConversation;
 
         private void OnEnable()
         {
@@ -50,19 +50,31 @@ namespace Guizan.Dialog
             if (npc == null || Initialized)
                 return;
 
-            Instance.talkManager.StartConversation();
+            Debug.Log("Iniciou a conversa");
             Instance.graphics.SetActive(true);
 
             GameObject agentGO = Instance.talkManager.gameObject;
+            //Adiciona as memórias permanentes
             if (agentGO.TryGetComponent<AgentMemoryManager>(out AgentMemoryManager memoryManager))
-                memoryManager.SetMemory(npc.agentLLMMemory, npc.permanentMemories);
+                memoryManager.SetMemory(npc.AgentLLMMemory, npc.PermanentMemories);
 
+            //Adiciona os arquivos de embeddings
             if (agentGO.TryGetComponent<AgentEmbeddingManager>(out AgentEmbeddingManager fileEmbeddings))
-                fileEmbeddings.SetFileEmbeddings(npc.fileEmbeddings);
+                fileEmbeddings.SetFileEmbeddings(npc.FileEmbeddings);
 
-            Instance.agentManager.InitializeDialog(npc.dialogImage);
+            //Adiciona os TalkInjectors
+            if (agentGO.TryGetComponent<AgentTalkMemoryInjection>(out AgentTalkMemoryInjection injectors))
+                injectors.SetList(npc.TalkInjectors);
+
+            //Adiciona os AgentsActions
+            if (agentGO.TryGetComponent<AgentActionsManager>(out AgentActionsManager actionsManager))
+                actionsManager.SetList(npc.AgentActions);
+
+            Instance.talkManager.StartConversation();
+
+            Instance.agentManager.InitializeDialog(npc.DialogEmoticonsImg);
             //Instance.agentManager.ReceiveAnswer(new() { "Olá, como posso ajudar?" });
-            Instance.talkManager.SendMessage(initialMessage, callback: (pages) => Instance.agentManager.ReceiveAnswer(pages));
+            Instance.talkManager.SendMessage(initialMessage, callback: (pages, emoticons) => Instance.agentManager.ReceiveAnswer(pages, emoticons));
         }
 
         private void SendMessage()
@@ -70,7 +82,8 @@ namespace Guizan.Dialog
             if (textArea.text.Equals(string.Empty))
                 return;
 
-            talkManager.SendMessage(textArea.text, callback: (pages) => agentManager.ReceiveAnswer(pages));
+            agentManager.WaitingForAnswer();
+            talkManager.SendMessage(textArea.text, callback: (pages, emoticons) => agentManager.ReceiveAnswer(pages, emoticons));
             textArea.text = string.Empty;
         }
 

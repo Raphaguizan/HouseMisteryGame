@@ -36,6 +36,11 @@ namespace Guizan.LLM.Agent
             memory.Insert(index, newMessage);
         }
 
+        public void RemoveAt(int index)
+        {
+            memory.RemoveAt(index);
+        }
+
         private bool AlreadyInMemory(string test)
         {
             return memory.Exists((i) => i.content.Equals(test));

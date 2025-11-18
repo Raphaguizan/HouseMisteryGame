@@ -1323,6 +1323,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Agent
       objectReference: {fileID: 0}
+    - target: {fileID: 3427958782453773459, guid: 4656d67ac19adc94f831d1fadd982f0f, type: 3}
+      propertyPath: sumaryPrompt
+      value: "Voc\xEA est\xE1 interagindo com um jogador por meio de um personagem
+        (NPC) em um jogo. \r\nO que foi conversado at\xE9 agora n\xE3o ser\xE1 enviado
+        novamente. \r\nA partir desta mensagem, quero que voc\xEA gere um resumo
+        conciso da conversa anterior.\r\n\r\nEsse resumo deve servir como uma mem\xF3ria
+        para o NPC, contendo apenas os fatos importantes, inten\xE7\xF5es, decis\xF5es
+        ou sentimentos relevantes que o jogador demonstrou.\r\n\r\nIgnore cumprimentos,
+        piadas ou partes irrelevantes, mas lembre-se de anotar suas pr\xF3prias respostas
+        tamb\xE9m.\r\n\r\nEscreva o resumo como se fosse uma nota pessoal do NPC
+        para lembrar o que aconteceu at\xE9 agora, usando frases curtas, diretas,
+        que expressem os sentimentos do seu personagem com cada acontecimento para
+        que possa ser usado no futuro. pode ser feito em t\xF3picos tamb\xE9m.\r\n\r\nO
+        resumo deve ser respondido apenas em texto sem nada escrito al\xE9m do resumo,
+        sem JSON s\xF3 o texto do resumo.\r\n\r\nInstru\xE7\xF5es espec\xEDficas
+        para este caso:      \r\n- N\xE3o adicione coment\xE1rios, explica\xE7\xF5es
+        ou qualquer texto al\xE9m do texto de resumo.  \r\n- Se a \xFAltima mensagem
+        foi do sistema informando que o jogador encerrou a conversa, adicione um
+        \xFAltimo item nos t\xF3picos ou uma ultima linha no texto explicando claramente
+        como a conversa terminou, para que o NPC saiba como retomar a intera\xE7\xE3o
+        futuramente.\r\n- Eu quero um **resumo** e n\xE3o tudo que foi dito na conversa.\r\n-
+        Caso n\xE3o tenha nenhuma mensagem anterior ou nada de importante e n\xE3o
+        vale a pena escrever um resumo mande uma mensagem escrito apenas \"[NONE]\"."
+      objectReference: {fileID: 0}
     - target: {fileID: 4837061594998618240, guid: 4656d67ac19adc94f831d1fadd982f0f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.826599

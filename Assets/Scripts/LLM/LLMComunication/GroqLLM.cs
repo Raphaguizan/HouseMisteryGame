@@ -80,13 +80,8 @@ namespace Guizan.LLM
             if (request.result == UnityWebRequest.Result.Success)
             {
                 string answerJson = request.downloadHandler.text;
-                response.SetResponseData(answerJson.ExtractLLMMessage());
-            }
-            else
-            {
-                //Debug.LogError("Erro ao enviar para a Groq: " + request.error);
-
-                response.SetResponseData(null, ResponseType.Error);
+                Debug.Log(answerJson.ExtractLLMMessage());
+                response = new(answerJson.ExtractLLMMessage());
             }
 
             //Debug.Log(response);

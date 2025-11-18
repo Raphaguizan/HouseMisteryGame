@@ -8,7 +8,7 @@ namespace Guizan.LLM.Agent
     public class AgentTalkMemoryInjection : MonoBehaviour
     {
         [SerializeField]
-        private List<TalkInjector> injectors;
+        private List<TalkInjectorBinder> injectors;
 
         AgentTalkManager talkManager;
         private void Awake()
@@ -18,14 +18,20 @@ namespace Guizan.LLM.Agent
             talkManager.ConversationStartCallBack.AddListener(InjectMemory);
         }
 
-        public void Subscribe(TalkInjector injector)
+        public void SetList(List<TalkInjectorBinder> newInjectors)
+        {
+            injectors.Clear();
+            injectors = newInjectors;
+        }
+
+        public void Subscribe(TalkInjectorBinder injector)
         {
             injectors.Add(injector);
         }
 
         public void InjectMemory()
         {
-            foreach (TalkInjector injector in injectors)
+            foreach (TalkInjectorBinder injector in injectors)
             {
                 talkManager.AddMemory(new(MessageRole.system, injector.GetTextToInject()));
             }
