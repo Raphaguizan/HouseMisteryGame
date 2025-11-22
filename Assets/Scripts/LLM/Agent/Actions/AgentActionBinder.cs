@@ -6,7 +6,9 @@ namespace Guizan.LLM.Agent.Actions
 {
     public class AgentActionBinder : ScriptableObject, IAgentAction
     {
-        public string Type => throw new System.NotImplementedException();
+        [SerializeField]
+        protected string type;
+        public virtual string Type => type;
 
         public virtual void MakeAction(Dictionary<string, object> Parameters) { }
     }

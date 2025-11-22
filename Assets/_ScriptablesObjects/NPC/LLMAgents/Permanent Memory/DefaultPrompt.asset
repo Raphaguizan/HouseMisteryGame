@@ -50,4 +50,4 @@ MonoBehaviour:
       sim. Mas cuidado, este caminho \xE9 perigoso.\",\r\n    \"Fique perto de mim
       e n\xE3o toque em nada estranho.\"\r\n  ],\r\n  \"Emoticon\": [\r\n    \"Thinking\",\r\n   
       \"Default\"\r\n  ],\r\n  \"action\": {\r\n    \"type\": \"follow_player\",\r\n   
-      \"parameters\": {\r\n    }\r\n  }\r\n}\r\n"
+      \"parameters\": {\r\n    }\r\n  }\r\n}\r"

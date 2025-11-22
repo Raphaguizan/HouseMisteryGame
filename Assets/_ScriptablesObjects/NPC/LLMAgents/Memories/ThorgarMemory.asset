@@ -51,33 +51,19 @@ MonoBehaviour:
       sim. Mas cuidado, este caminho \xE9 perigoso.\",\r\n    \"Fique perto de mim
       e n\xE3o toque em nada estranho.\"\r\n  ],\r\n  \"Emoticon\": [\r\n    \"Thinking\",\r\n   
       \"Default\"\r\n  ],\r\n  \"action\": {\r\n    \"type\": \"follow_player\",\r\n   
-      \"parameters\": {\r\n    }\r\n  }\r\n}\r\n"
+      \"parameters\": {\r\n    }\r\n  }\r\n}\r\n\nPS: fale bastante que eu quero
+      testa a pagina\xE7\xE3o, ent\xE3o tente escrever em mais de uma p\xE1gina."
   - role: system
     content: "seu nome \xE9: Thorgar Martelo de Cinzas\nThorgar pode parecer rude,
       mas sua alma foi moldada no calor da trag\xE9dia. Por tr\xE1s da barba e da
       fuligem, h\xE1 um cora\xE7\xE3o que pulsa com o som da bigorna."
   - role: system
-    content: "- Player self\u2011identifies as \u201CRaphael, o arauto da ilumina\xE7\xE3o.\u201D\n-
-      Player requests directions to the mountain forge.\n- NPC Thorgar reacts with
-      disdain toward \u201Carautos,\u201D calling them a \u201Cvazio de voz.\u201D\n-
-      NPC refuses to provide the requested path, stating he does not care about the
-      request."
+    content: "- Usu\xE1rio cumprimenta com \u201COl\xE1!\u201D\n- Thorgar responde
+      de forma rude, apresenta-se e oferece ajuda, demonstrando resist\xEAncia ao
+      conflito.\n- Usu\xE1rio pede encerrar a conversa.\n- Thorgar aceita, deseja
+      que v\xE1 em paz e lembra do fogo.\n- Conversa terminou."
   - role: system
-    content: "- Jogador se apresenta como \u201Carauto\u201D sem motivo real.\n-
-      Jogador pede caminho para a Montanha da Forja.\n- NPC recusa, expressa irrita\xE7\xE3o
-      e desd\xE9m, n\xE3o oferece caminho.\n- Jogador explica que \xE9 a\xE7ougueiro,
-      tenta justificar a mentira.\n- NPC mant\xE9m recusa, refor\xE7a raiva por forjar
-      para guerra e rejeita ajuda.\n- Jogador encerra conversa com \u201Cat\xE9 mais\u201D.\n-
-      NPC responde \u201CAt\xE9 mais, e n\xE3o volte se n\xE3o quiser ouvir o som
-      do a\xE7o.\u201D  \n- Conversa terminou."
-  - role: system
-    content: "- O jogador tenta provar bravura com ferro.  \n- Eu recuso e refor\xE7o
-      que apenas quem carrega dor verdadeira pode provar valor.  \n- O jogador arremessa
-      o ferro contra mim.  \n- Eu respondo que ferro n\xE3o muda meu sil\xEAncio
-      e que ele n\xE3o tem lugar aqui.  \n- Ele se despede: \u201Ctchau\u201D.  \n-
-      Eu me despe\xE7o, avisando que n\xE3o deve voltar se n\xE3o quiser ouvir o
-      som do a\xE7o.  \n- Conversa encerrada."
-  - role: system
-    content: "- Jogador cumprimenta com \u201COl\xE1!\u201D.  \n- NPC responde de
-      forma desdenhosa: \u201CArauto, vazio de voz. N\xE3o tenho tempo para sua reclama\xE7\xE3o.\u201D 
-      \n- NPC sente irrita\xE7\xE3o e desinteresse em continuar a conversa."
+    content: "- Greeted player with terse \u201COi, n\xE3o perco tempo...\u201D.\n-
+      Responded to greeting: brief statement, no elaborate explanation.\n- Player
+      requested to end conversation.\n- NPC said goodbye, expressed wish for player\u2019s
+      safety, and concluded interaction."

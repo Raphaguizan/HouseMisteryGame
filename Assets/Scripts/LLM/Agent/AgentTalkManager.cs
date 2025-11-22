@@ -1,9 +1,10 @@
-using System.Collections.Generic;
-using UnityEngine;
+using Guizan.LLM.Embedding;
 using NaughtyAttributes;
 using System;
-using Guizan.LLM.Embedding;
+using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Guizan.LLM.Agent
@@ -118,7 +119,8 @@ namespace Guizan.LLM.Agent
             {
                 Debug.LogError(defaultMessage);  
                 pages.Add(defaultMessage);
-                //EndConversation();
+                response.Action.Type = "end_conversation";
+                actionsManager.MakeAction(response.Action);
             } 
             else 
             {

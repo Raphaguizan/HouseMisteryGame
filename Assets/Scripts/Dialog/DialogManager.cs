@@ -28,21 +28,27 @@ namespace Guizan.Dialog
         [SerializeField]
         private GameObject graphics;
 
-        public static bool Initialized => Instance.graphics.activeInHierarchy || Instance.talkManager.InConversation;
+        private bool conversationFinalized = false;
+
+        //private bool Initialized;
+
+        public static bool Initialized = false;
 
         private void OnEnable()
         {
-            sendButton.onClick.AddListener(SendMessage);
+            sendButton.onClick.AddListener(SendButton);
             exitButton.onClick.AddListener(EndConversation);
             graphics.SetActive(false);
         }
 
         private void Update()
         {
-            if (!graphics.activeInHierarchy)
+            if (!Initialized)
                 return;
             if (Keyboard.current.enterKey.wasPressedThisFrame || Keyboard.current.numpadEnterKey.wasPressedThisFrame)
-                SendMessage();
+                SendButton();
+
+            CheckSendButton();
         }
 
         public static void InitializeDialog(NPCConfigs npc, string initialMessage = "Olá!")
@@ -67,24 +73,87 @@ namespace Guizan.Dialog
                 injectors.SetList(npc.TalkInjectors);
 
             //Adiciona os AgentsActions
-            if (agentGO.TryGetComponent<AgentActionsManager>(out AgentActionsManager actionsManager))
-                actionsManager.SetList(npc.AgentActions);
+            //if (agentGO.TryGetComponent<AgentActionsManager>(out AgentActionsManager actionsManager))
+            //    actionsManager.SetList(npc.AgentActions);
 
             Instance.talkManager.StartConversation();
 
             Instance.agentManager.InitializeDialog(npc.DialogEmoticonsImg);
-            //Instance.agentManager.ReceiveAnswer(new() { "Olá, como posso ajudar?" });
-            Instance.talkManager.SendMessage(initialMessage, callback: (pages, emoticons) => Instance.agentManager.ReceiveAnswer(pages, emoticons));
+            Instance.talkManager.SendMessage(initialMessage, callback: (pages, emoticons) => {
+                    Initialized = true;
+                    Instance.agentManager.ReceiveAnswer(pages, emoticons);
+                });
         }
 
-        private void SendMessage()
+        private void CheckSendButton()
         {
+
+            // Ajusta o inputfield para terminar a converça
+            if (agentManager.InLastPage && textArea.enabled == false && conversationFinalized)
+            {
+                sendButton.GetComponentInChildren<TextMeshProUGUI>().text = "Sair";
+                var placeholderText = textArea.placeholder as TMP_Text;
+                textArea.text = string.Empty;
+                if (placeholderText != null)
+                {
+                    placeholderText.text = string.Empty;
+                }
+                textArea.enabled = false;
+                return;
+            }
+
+            // Ajusta o inputfield para enviar a mensagem
+            if (agentManager.InLastPage && textArea.enabled == false)
+            {
+                sendButton.GetComponentInChildren<TextMeshProUGUI>().text = "Enviar";
+                var placeholderText = textArea.placeholder as TMP_Text;
+                textArea.enabled = true;
+                if (placeholderText != null)
+                {
+                    placeholderText.text = "Escreva sua mensagem.";
+                }
+                textArea.Select();
+                return;
+            }
+
+            // Ajusta o inputfield para antes da ultima página (não pode enviar mensagem)
+            if (!agentManager.InLastPage && textArea.enabled == true)
+            {
+                sendButton.GetComponentInChildren<TextMeshProUGUI>().text = "Próxima Página";
+                var placeholderText = textArea.placeholder as TMP_Text;
+                textArea.text = string.Empty;
+                if (placeholderText != null)
+                {
+                    placeholderText.text = string.Empty;
+                }
+                textArea.enabled = false;
+            }
+        }
+
+        private void SendButton()
+        {
+            if (!agentManager.InLastPage)
+            {
+                agentManager.NextPage();
+                return;
+            }
+            if (conversationFinalized)
+            {
+                EndConversation();
+                return;
+            }
             if (textArea.text.Equals(string.Empty))
                 return;
 
             agentManager.WaitingForAnswer();
             talkManager.SendMessage(textArea.text, callback: (pages, emoticons) => agentManager.ReceiveAnswer(pages, emoticons));
             textArea.text = string.Empty;
+            textArea.enabled = false;
+        }
+
+        public static void FinalizeConversation()
+        {
+            Instance.conversationFinalized = true;
         }
 
         public static void EndConversation()
@@ -94,11 +163,14 @@ namespace Guizan.Dialog
 
             Instance.talkManager.EndConversation();
             Instance.graphics.SetActive(false);
+            Instance.conversationFinalized = false;
+            Instance.textArea.enabled = false;
+            Initialized = false;
         }
 
         private void OnDisable()
         {
-            sendButton.onClick.RemoveListener(SendMessage);
+            sendButton.onClick.RemoveListener(SendButton);
             exitButton.onClick.RemoveListener(EndConversation);
         }
     }

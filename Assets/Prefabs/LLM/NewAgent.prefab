@@ -79,21 +79,19 @@ MonoBehaviour:
     sentimentos relevantes que o jogador demonstrou.\r\n\r\nIgnore cumprimentos,
     piadas ou partes irrelevantes, mas lembre-se de anotar suas pr\xF3prias respostas
     tamb\xE9m.\r\n\r\nEscreva o resumo como se fosse uma nota pessoal do NPC para
-    lembrar o que aconteceu at\xE9 agora, usando frases curtas, diretas, no estilo
-    de t\xF3picos.\r\n\r\nO resumo deve seguir o formato **JSON padr\xE3o estabelecido
-    anteriormente**, com a seguinte estrutura:\r\n\r\n{\r\n  \"pages\": [\r\n   
-    \"Texto da p\xE1gina 1 (m\xE1ximo 150 caracteres)\",\r\n    \"Texto da p\xE1gina
-    2 (m\xE1ximo 150 caracteres, se necess\xE1rio)\",\r\n    ...\r\n  ],\r\n  \"action\":
-    {\r\n    \"type\": \"none\",\r\n    \"parameters\": {}\r\n  }\r\n}\r\n\r\nInstru\xE7\xF5es
-    espec\xEDficas para este caso:\r\n- Coloque cada t\xF3pico ou pensamento do NPC
-    em uma nova p\xE1gina dentro do array `\"pages\"`.  \r\n- N\xE3o h\xE1 limite
-    de p\xE1ginas, mas mantenha os textos curtos e objetivos.  \r\n- N\xE3o execute
-    nenhuma a\xE7\xE3o \u2014 o campo `\"action\"` deve sempre ter `\"type\": \"none\"`. 
-    \r\n- N\xE3o adicione coment\xE1rios, explica\xE7\xF5es ou qualquer texto fora
-    do JSON.  \r\n- Se a \xFAltima mensagem foi do sistema informando que o jogador
-    encerrou a conversa, adicione um \xFAltimo item nas p\xE1ginas explicando claramente
-    como a conversa terminou, para que o NPC saiba como retomar a intera\xE7\xE3o
-    futuramente.\r\n- Eu quero um **resumo** e n\xE3o tudo que foi dito na conversa."
+    lembrar o que aconteceu at\xE9 agora, usando frases curtas, diretas, que expressem
+    os sentimentos do seu personagem com cada acontecimento para que possa ser usado
+    no futuro. pode ser feito em t\xF3picos tamb\xE9m.\r\n\r\nO resumo deve ser respondido
+    apenas em texto sem nada escrito al\xE9m do resumo, sem JSON s\xF3 o texto do
+    resumo.\r\n\r\nInstru\xE7\xF5es espec\xEDficas para este caso:      \r\n- N\xE3o
+    adicione coment\xE1rios, explica\xE7\xF5es ou qualquer texto al\xE9m do texto
+    de resumo.  \r\n- Se a \xFAltima mensagem foi do sistema informando que o jogador
+    encerrou a conversa, adicione um \xFAltimo item nos t\xF3picos ou uma ultima
+    linha no texto explicando claramente como a conversa terminou, para que o NPC
+    saiba como retomar a intera\xE7\xE3o futuramente.\r\n- Eu quero um **resumo**
+    e n\xE3o tudo que foi dito na conversa.\r\n- Caso n\xE3o tenha nenhuma mensagem
+    anterior ou nada de importante e n\xE3o vale a pena escrever um resumo mande
+    uma mensagem escrito apenas \"[NONE]\"."
 --- !u!114 &8858413492907557192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,4 +131,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 034075c920877384ca431414658c4904, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Guizan.LLM.Agent.AgentActionsManager
-  actionSubscribe: []
+  actionSubscribe:
+  - {fileID: 11400000, guid: 9ca63a3c1976f58428bef44dc6b544bb, type: 2}

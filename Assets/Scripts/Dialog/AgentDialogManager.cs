@@ -25,6 +25,8 @@ namespace Guizan.Dialog
         private List<string> pages;
         private int currentPage = 0;
 
+        public bool InLastPage => currentPage == pages.Count - 1;
+
         public void InitializeDialog(List<Sprite> emoticons)
         {
             emoticonsList = emoticons;
@@ -73,7 +75,11 @@ namespace Guizan.Dialog
         private void ShowTextByIndex()
         {
             textBox.text = pages[currentPage];
-            SetEmoticonSprite(currentEmoticonsList[currentPage]);
+            AgentEmoticons emot = AgentEmoticons.Default;
+            if (currentEmoticonsList.Count > 0)
+                emot = currentEmoticonsList[currentPage];
+
+            SetEmoticonSprite(emot);
         }
         private void AdjustPageIndex()
         {
@@ -87,7 +93,7 @@ namespace Guizan.Dialog
         }
 
 
-        private void NextPage()
+        public void NextPage()
         {
             if (currentPage >= pages.Count - 2)
                 rightArrow.interactable = false;
