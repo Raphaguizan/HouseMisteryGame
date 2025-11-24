@@ -183,6 +183,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9f8fd7f8540675439f2ea929e8a477a, type: 3}
+--- !u!1 &418889146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 418889147}
+  m_Layer: 0
+  m_Name: Roons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &418889147
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418889146}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1473036000}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &803558597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -463,7 +494,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1406352344
 Transform:
   m_ObjectHideFlags: 0
@@ -500,6 +531,60 @@ MonoBehaviour:
   ChanceToDoor2: 0.2
   horizontalBias: 0.8
   extraDoorPercentage: 0.2
+--- !u!1 &1473035998
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1473036000}
+  - component: {fileID: 1473035999}
+  m_Layer: 0
+  m_Name: House 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1473035999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473035998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2020695230d7fac41bb0cdd2dcdc2ca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomPrefab: {fileID: 4546778571518768371, guid: c9f8fd7f8540675439f2ea929e8a477a, type: 3}
+  roonsParent: {fileID: 418889147}
+  matrixDim: {x: 10, y: 10}
+  horizontalDist: 24.2
+  verticalDist: 9.2
+  ChanceToDoor2: 0.4
+  horizontalBias: 0.8
+  extraDoorPercentage: 0.2
+  density: 0.45
+--- !u!4 &1473036000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473035998}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 418889147}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1623556337
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,7 +614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df73b0311290fd479e3bc0f76c913cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  my: {fileID: 1731343024}
+  my: {fileID: 0}
   itemName: Item1
   itemQty: 1
 --- !u!4 &1623556339
@@ -561,11 +646,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4730396537761253680, guid: a8cf5d95cf0d70b4597e397bc35fcb11, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.69
+      value: 7.33
       objectReference: {fileID: 0}
     - target: {fileID: 4730396537761253680, guid: a8cf5d95cf0d70b4597e397bc35fcb11, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.58
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4730396537761253680, guid: a8cf5d95cf0d70b4597e397bc35fcb11, type: 3}
       propertyPath: m_LocalPosition.z
@@ -604,17 +689,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8cf5d95cf0d70b4597e397bc35fcb11, type: 3}
---- !u!114 &1731343024 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6109601565883416131, guid: a8cf5d95cf0d70b4597e397bc35fcb11, type: 3}
-  m_PrefabInstance: {fileID: 1731343023}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 909bac222f49402449ac06a9986ed8c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -624,4 +698,5 @@ SceneRoots:
   - {fileID: 209912522}
   - {fileID: 1731343023}
   - {fileID: 1406352344}
+  - {fileID: 1473036000}
   - {fileID: 1623556339}
