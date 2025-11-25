@@ -34,9 +34,13 @@ namespace Guizan.House
         private RoomController[,] roonsMatrix;
         private System.Random rand = new System.Random();
         private Nullable<Vector2Int> secretRoom = null;
+        private bool initialized = false;
+
+        public bool IsInitialized => initialized;
 
         void Start()
         {            
+            initialized = false;
             InstantiateRoons();
         }
 
@@ -58,8 +62,8 @@ namespace Guizan.House
                     if (occupied[x, y])
                         instantiateOrder.Add(new Vector2Int(x, y));
 
-            // Opcional: garantir ordem determinística/randomizada
-            // instantiateOrder = instantiateOrder.OrderBy(p => p.x).ThenBy(p => p.y).ToList();
+            // garantir ordem determinística/randomizada
+            instantiateOrder = instantiateOrder.OrderBy(p => p.x).ThenBy(p => p.y).ToList();
 
             foreach (var pos in instantiateOrder)
             {
@@ -69,6 +73,9 @@ namespace Guizan.House
                 roonsMatrix[pos.x, pos.y] = newRoom.GetComponent<RoomController>();
             }
 
+            //AddLocalCycles(); // Adiciona ciclos locais após a geração inicial
+            CreateShortcuts(4, 7); // distância máxima e prob de preencher intermediários
+
             // Começa DFS de geração a partir de uma sala existente (escolhe a primeira ocupada que encontrar)
             bool[,] visited = new bool[matrixDim.x, matrixDim.y];
             Vector2Int? first = FindFirstOccupied(occupied);
@@ -77,13 +84,13 @@ namespace Guizan.House
             else
                 Debug.LogError("Nenhuma sala ocupada foi gerada!");
 
-            ChooseSecretRoom();
             AddExtraDoors();
             AdjustCamerasBounds();
 
+            initialized = true;
             Debug.Log("Mapa gerado com sucesso e totalmente conectado!");
         }
-
+        
         private Vector2Int? FindFirstOccupied(bool[,] occ)
         {
             for (int x = 0; x < matrixDim.x; x++)
@@ -260,15 +267,6 @@ namespace Guizan.House
             return occ;
         }
 
-        private int CountOccupied(bool[,] occ)
-        {
-            int c = 0;
-            for (int x = 0; x < matrixDim.x; x++)
-                for (int y = 0; y < matrixDim.y; y++)
-                    if (occ[x, y]) c++;
-            return c;
-        }
-
         // Carve path entre duas células usando passos intercalados (aleatorizados) e marcando occ = true
         private void CarvePath(bool[,] occ, Vector2Int a, Vector2Int b)
         {
@@ -295,40 +293,6 @@ namespace Guizan.House
             }
         }
 
-        private void ChooseSecretRoom()
-        {
-            List<Vector2Int> oneDoorRoons = new();
-            List<Vector2Int> oneDoorRoonsHorizontal = new();
-
-            for (int x = 0;x < matrixDim.x; x++)
-                for(int y = 0;y < matrixDim.y; y++)
-                    if (roonsMatrix[x, y] != null && roonsMatrix[x, y].CountDoors() == 1 && !(x == 0 && y == 0))
-                        oneDoorRoons.Add(new(x, y));
-
-            for (int i = 0; i < oneDoorRoons.Count; i++)
-            {
-                RoomController myRoom = roonsMatrix[oneDoorRoons[i].x, oneDoorRoons[i].y];
-                WallSide doorSide = myRoom.GetDoorsSide()[0];
-                if (doorSide == WallSide.Left || doorSide == WallSide.Right)
-                    oneDoorRoonsHorizontal.Add(oneDoorRoons[i]);
-            }
-
-            if(oneDoorRoonsHorizontal.Count > 0)
-            {
-                secretRoom = oneDoorRoonsHorizontal[rand.Next(oneDoorRoonsHorizontal.Count)];
-                RoomController myRoom = roonsMatrix[secretRoom.Value.x, secretRoom.Value.y];
-                myRoom.name += " S";
-
-                WallSide doorSide = myRoom.GetDoorsSide()[0];
-                myRoom.ChangeWallType(doorSide, WallType.Door);
-
-                //Debug.Log($"ChoosenRoom = ({secretRoom.Value.x},{secretRoom.Value.y})");
-            }
-
-            if (!secretRoom.HasValue)
-                Debug.LogWarning("Não foi gerado um quarto secreto!");
-        }
-
         private void DFSGenerate(int x, int y, bool[,] visited)
         {
             if (roonsMatrix[x, y] == null)
@@ -346,7 +310,7 @@ namespace Guizan.House
             };
 
             // Embaralha as direções
-            ShuffleDirections(directions);
+            directions = ShuffleDirections(directions);
 
             foreach (var dir in directions)
             {
@@ -428,12 +392,13 @@ namespace Guizan.House
             }
         }
 
-        private void ShuffleDirections(List<Vector2Int> directions)
+        private List<Vector2Int> ShuffleDirections(List<Vector2Int> directions)
         {
             // horizontalBias: 0.0 = só verticais, 1.0 = só horizontais
             List<Vector2Int> newOrder = new List<Vector2Int>();
+            List<Vector2Int> directionsList = directions;
 
-            while (directions.Count > 0)
+            while (directionsList.Count > 0)
             {
                 Vector2Int chosen;
 
@@ -441,28 +406,27 @@ namespace Guizan.House
                 if (rand.NextDouble() < horizontalBias)
                 {
                     // Tenta pegar uma horizontal primeiro (→ ou ←)
-                    var horizontals = directions.FindAll(d => d.x != 0);
+                    var horizontals = directionsList.FindAll(d => d.x != 0);
                     if (horizontals.Count > 0)
                         chosen = horizontals[rand.Next(horizontals.Count)];
                     else
-                        chosen = directions[rand.Next(directions.Count)];
+                        chosen = directionsList[rand.Next(directionsList.Count)];
                 }
                 else
                 {
                     // Tenta pegar uma vertical (↑ ou ↓)
-                    var verticals = directions.FindAll(d => d.y != 0);
+                    var verticals = directionsList.FindAll(d => d.y != 0);
                     if (verticals.Count > 0)
                         chosen = verticals[rand.Next(verticals.Count)];
                     else
-                        chosen = directions[rand.Next(directions.Count)];
+                        chosen = directionsList[rand.Next(directionsList.Count)];
                 }
 
-                directions.Remove(chosen);
+                directionsList.Remove(chosen);
                 newOrder.Add(chosen);
             }
 
-            directions.Clear();
-            directions.AddRange(newOrder);
+            return newOrder;
         }
 
         private void AddExtraDoors()
@@ -471,11 +435,7 @@ namespace Guizan.House
             int height = matrixDim.y;
 
             // Calcula portas extras com base no número real de quartos criados
-            int createdRooms = 0;
-            for (int x = 0; x < width; x++)
-                for (int y = 0; y < height; y++)
-                    if (roonsMatrix[x, y] != null)
-                        createdRooms++;
+            int createdRooms = CountOccupied();
 
             int targetExtras = Mathf.RoundToInt(createdRooms * extraDoorPercentage);
 
@@ -522,27 +482,271 @@ namespace Guizan.House
                 if (pos.x < width - 1 && current.GetWallType(WallSide.Left) == WallType.Full && (!secretRoom.HasValue || new Vector2Int(pos.x - 1, pos.y) != secretRoom.Value))
                     possibleDirs.Add(Vector2Int.left);
 
-                if (possibleDirs.Count == 0)
+                if (possibleDirs.Count <= 1)
                     continue;
 
+                
                 // Escolhe uma direção aleatória
-                ShuffleDirections(possibleDirs);
-                Vector2Int dir = possibleDirs[0];
-                int nx = pos.x - dir.x;
-                int ny = pos.y - dir.y;
+                var possibleDirsShuffled = ShuffleDirections(possibleDirs);
+                int nx, ny;
+                nx = ny = -1;
 
-                if (nx < 0 || ny < 0 || nx >= width || ny >= height)
-                    continue;
-                if (roonsMatrix[nx, ny] == null)
+                for (int i = 0; i < possibleDirsShuffled.Count; i++)
+                {
+                    Vector2Int dir = possibleDirsShuffled[i];
+                    int nx_aux = pos.x - dir.x;
+                    int ny_aux = pos.y - dir.y;
+
+                    if (nx_aux >= 0 && ny_aux >= 0 && nx_aux < width && ny_aux < height && roonsMatrix[nx_aux, ny_aux] != null)
+                    {
+                        nx = nx_aux;
+                        ny = ny_aux;
+                        break;
+                    }
+                }
+
+                if (nx == -1 && ny == -1)
                     continue;
 
                 OpenPassage(pos.x, pos.y, nx, ny);
-               
+                //Debug.Log($"Porta extra adicionada entre ({pos.x},{pos.y}) e ({nx},{ny})");
+
                 added++;
             }
 
             Debug.Log($"Adicionadas {added} portas extras ({extraDoorPercentage * 100f}% de {createdRooms} comodos).");
         }
 
+        /// <summary>
+        /// Attempts to create local cycles by connecting adjacent rooms in the matrix with new passages, based on the
+        /// specified connection probability and horizontal bias.
+        /// </summary>
+        /// <remarks>The method favors horizontal or vertical connections according to the horizontal bias
+        /// setting. Only rooms that are directly adjacent and not already connected by a passage are considered. This
+        /// can increase the overall connectivity and loopiness of the room layout.</remarks>
+        /// <param name="connectProbability">The base probability, in the range [0, 1], of creating a connection between two adjacent rooms. Higher
+        /// values increase the likelihood of additional passages.</param>
+        private void AddLocalCycles(float connectProbability = 0.15f)
+        {
+            int width = matrixDim.x;
+            int height = matrixDim.y;
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    if (roonsMatrix[x, y] == null) continue;
+
+                    // Apenas checa direita e cima para evitar duplicação (pode ajustar)
+                    var neighbors = new List<Vector2Int>
+                    {
+                        new Vector2Int(x + 1, y), // direita
+                        new Vector2Int(x, y + 1)  // cima
+                    };
+
+                    foreach (var n in neighbors)
+                    {
+                        if (n.x < 0 || n.y < 0 || n.x >= width || n.y >= height) continue;
+                        if (roonsMatrix[n.x, n.y] == null) continue;
+
+                        bool isHorizontal = (n.x != x);
+                        // Ajusta probabilidade pela orientação pedida
+                        float orientFactor = isHorizontal ? horizontalBias : (1f - horizontalBias);
+                        float finalProb = connectProbability * Mathf.Clamp01(orientFactor);
+
+                        if (rand.NextDouble() < finalProb)
+                        {
+                            // Só conecta se já não houver porta (testa parede atual)
+                            // Considera walls do RoomController através de GetWallType
+                            // Se estiver Full, abre a passagem
+                            WallSide sideFrom = isHorizontal ? WallSide.Right : WallSide.Ceiling;
+                            WallType wallType = roonsMatrix[x, y].GetWallType(sideFrom);
+                            if (wallType == WallType.Full)
+                            {
+                                OpenPassage(x, y, n.x, n.y);
+                                Debug.Log($"Ciclo local adicionado entre ({x},{y}) e ({n.x},{n.y})");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creates additional shortcut rooms between existing rooms to improve connectivity within the layout. Shortcut
+        /// rooms are placed based on the specified minimum and maximum Manhattan distances between room pairs.
+        /// </summary>
+        /// <remarks>Shortcut rooms are only created if the budget, determined by the number of existing
+        /// rooms and the configured extra door percentage, is greater than zero. The method avoids creating shortcuts
+        /// between rooms that are already well-connected and only adds intermediate rooms when the shortest existing
+        /// path is significantly longer than the direct Manhattan distance. This helps optimize navigation and reduce
+        /// unnecessary detours in the generated layout.</remarks>
+        /// <param name="minDistance">The minimum Manhattan distance, in grid units, between pairs of rooms considered for shortcut creation. Must
+        /// be at least 1.</param>
+        /// <param name="maxDistance">The maximum Manhattan distance, in grid units, between pairs of rooms considered for shortcut creation. Must
+        /// be greater than or equal to <paramref name="minDistance"/>.</param>
+        private void CreateShortcuts(int minDistance = 2, int maxDistance = 5)
+        {
+            int width = matrixDim.x;
+            int height = matrixDim.y;
+
+            if (minDistance < 1) minDistance = 1;
+            if (maxDistance < minDistance) maxDistance = minDistance;
+
+            int createdRooms = CountOccupied();
+            int budget = Mathf.RoundToInt(createdRooms * extraDoorPercentage);
+            if (budget <= 0) return;
+
+            // Lista atual de salas ocupadas
+            List<Vector2Int> occupied = new List<Vector2Int>();
+            for (int x = 0; x < width; x++)
+                for (int y = 0; y < height; y++)
+                    if (roonsMatrix[x, y] != null)
+                        occupied.Add(new Vector2Int(x, y));
+
+            if (occupied.Count < 2) return;
+
+            // Gera pares candidatos (i<j) que respeitam min/max distance
+            var pairs = new List<(Vector2Int a, Vector2Int b, int manhattan)>();
+            for (int i = 0; i < occupied.Count; i++)
+            {
+                for (int j = i + 1; j < occupied.Count; j++)
+                {
+                    var a = occupied[i];
+                    var b = occupied[j];
+                    int manh = Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
+                    if (manh >= minDistance && manh <= maxDistance)
+                        pairs.Add((a, b, manh));
+                }
+            }
+
+            // Embaralha pares para dispersão
+            for (int i = 0; i < pairs.Count; i++)
+            {
+                int r = rand.Next(i, pairs.Count);
+                var tmp = pairs[i];
+                pairs[i] = pairs[r];
+                pairs[r] = tmp;
+            }
+
+            // Função local: BFS para distância de caminho entre salas existentes (somente por salas já criadas)
+            int GraphDistance(Vector2Int start, Vector2Int goal)
+            {
+                if (start == goal) return 0;
+                var q = new Queue<Vector2Int>();
+                var seen = new HashSet<Vector2Int> { start };
+                q.Enqueue(start);
+                int depth = 0;
+                while (q.Count > 0)
+                {
+                    int cnt = q.Count;
+                    depth++;
+                    for (int k = 0; k < cnt; k++)
+                    {
+                        var cur = q.Dequeue();
+                        Vector2Int[] dirs = { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
+                        foreach (var d in dirs)
+                        {
+                            int nx = cur.x + d.x;
+                            int ny = cur.y + d.y;
+                            if (nx < 0 || ny < 0 || nx >= width || ny >= height) continue;
+                            var nb = new Vector2Int(nx, ny);
+                            if (seen.Contains(nb)) continue;
+                            if (roonsMatrix[nx, ny] == null) continue; // só percorre por salas existentes
+                            if (nb == goal) return depth;
+                            seen.Add(nb);
+                            q.Enqueue(nb);
+                        }
+                    }
+                }
+                return int.MaxValue; // não alcançável
+            }
+
+            // Processa pares e cria quartos intermediários quando necessário
+            foreach (var pair in pairs)
+            {
+                if (budget <= 0) break;
+
+                var a = pair.a;
+                var b = pair.b;
+                int manh = pair.manhattan;
+
+                int graphDist = GraphDistance(a, b);
+
+                // Critério: se caminho via salas existentes for muito maior que a Manhattan, adiciona intermediários.
+                // Ajuste a sensibilidade conforme desejado. Aqui: se graphDist é int.MaxValue (desconexo) ou
+                // graphDist > manh + 2 (excesso de passos), então aproximamos via caminho direto.
+                if (graphDist == int.MaxValue || graphDist > manh + 2)
+                {
+                    // Gera caminho direto (L-shape) entre a e b
+                    List<Vector2Int> path = new List<Vector2Int>();
+                    int cx = a.x;
+                    int cy = a.y;
+                    path.Add(new Vector2Int(cx, cy));
+                    bool doXFirst = rand.NextDouble() < 0.5;
+                    if (doXFirst)
+                    {
+                        while (cx != b.x)
+                        {
+                            cx += Math.Sign(b.x - cx);
+                            path.Add(new Vector2Int(cx, cy));
+                        }
+                        while (cy != b.y)
+                        {
+                            cy += Math.Sign(b.y - cy);
+                            path.Add(new Vector2Int(cx, cy));
+                        }
+                    }
+                    else
+                    {
+                        while (cy != b.y)
+                        {
+                            cy += Math.Sign(b.y - cy);
+                            path.Add(new Vector2Int(cx, cy));
+                        }
+                        while (cx != b.x)
+                        {
+                            cx += Math.Sign(b.x - cx);
+                            path.Add(new Vector2Int(cx, cy));
+                        }
+                    }
+
+                    // Instancia apenas células intermediárias (não as extremidades) que estejam vazias,
+                    // consumindo do budget.
+                    for (int i = 1; i < path.Count - 1; i++)
+                    {
+                        var p = path[i];
+                        if (roonsMatrix[p.x, p.y] == null)
+                        {
+                            var newRoom = Instantiate(roomPrefab, roonsParent).transform;
+                            newRoom.localPosition = new Vector3(p.x * -horizontalDist, p.y * -verticalDist);
+                            newRoom.name = $"Room({p.x},{p.y})";
+                            roonsMatrix[p.x, p.y] = newRoom.GetComponent<RoomController>();
+                            occupied.Add(new Vector2Int(p.x, p.y));
+                            budget--;
+                            //Debug.Log($"Criado comodo intermediário em ({p.x},{p.y}) para aproximar {a} <-> {b}. Orçamento restante: {budget}");
+                        }
+                    }
+                }
+            }
+
+            Debug.Log($"CreateShortcuts finalizado. Novos quartos criados: {Mathf.RoundToInt(createdRooms * extraDoorPercentage) - budget} (orçamento inicial {Mathf.RoundToInt(createdRooms * extraDoorPercentage)}).");
+        }
+
+        public List<RoomController> GetRooms()
+        {
+            List<RoomController> resp = new();
+            for (int x = 0; x < matrixDim.x; x++)
+                for (int y = 0; y < matrixDim.y; y++)
+                    if (roonsMatrix[x, y] != null)
+                        resp.Add(roonsMatrix[x, y]);
+                    
+            return resp;
+        }
+
+        public int CountOccupied()
+        {
+            return GetRooms().Count;
+        }
     }
 }

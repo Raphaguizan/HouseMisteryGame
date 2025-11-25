@@ -1990,7 +1990,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3852229154217323286
 GameObject:
@@ -2200,7 +2200,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3885076364225526749
 GameObject:
@@ -2598,6 +2598,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6570157929803698175}
   - component: {fileID: 4683522820081668016}
+  - component: {fileID: 7535589176574292560}
   m_Layer: 0
   m_Name: Room
   m_TagString: Untagged
@@ -2640,10 +2641,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomCollider: {fileID: 5709251433347779704}
+  roomType: 0
   leftWallHandler: {fileID: 8226963993289632253}
   rightWallHandler: {fileID: 1162608490004554415}
   floorHandler: {fileID: 3671635686928982254}
   ceilingHandler: {fileID: 5435593954177818129}
+--- !u!114 &7535589176574292560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4546778571518768371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a10d70bf068e06c4d9e0fc5310cc029f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4678432340097982452
 GameObject:
   m_ObjectHideFlags: 0
@@ -2892,7 +2906,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4936424344198810041
 GameObject:
@@ -5093,7 +5107,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8097506850910757840
 GameObject:

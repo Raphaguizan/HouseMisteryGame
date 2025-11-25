@@ -8,24 +8,13 @@ using UnityEngine.UIElements;
 
 namespace Guizan.House.Room
 {
-    public enum WallType
-    {
-        Door,
-        Door2,
-        Full
-    }
-
-    public enum WallSide
-    {
-        Left,
-        Right,
-        Floor,
-        Ceiling
-    }
     public class RoomController : MonoBehaviour
     {
         [SerializeField]
         private RoomPlayerCollider roomCollider;
+
+        [SerializeField]
+        private RoomType roomType = RoomType.Default;
 
         [Header("Handlers")]
         [SerializeField]
@@ -37,6 +26,7 @@ namespace Guizan.House.Room
         [SerializeField]
         private WallHandler ceilingHandler;
 
+        public RoomType RoomType => roomType;
         public Vector2[] ColPoligonPoints => TransformPointsToWorldPos(roomCollider.Poligon.points);
         public bool HasCollider => roomCollider.gameObject.activeInHierarchy;
 
