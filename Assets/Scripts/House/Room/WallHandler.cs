@@ -8,6 +8,7 @@ namespace Guizan.House.Room
         [SerializeField]
         private List<Wall> myWalls;
 
+        [SerializeField]
         private WallType currentType = WallType.Full;
         public WallType WallType => currentType;
 
