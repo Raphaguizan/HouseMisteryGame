@@ -12,13 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae670ecc9e5befb4f97089fa0965cba7, type: 3}
   m_Name: Biologo
   m_EditorClassIdentifier: 
-  dialogEmoticonsImages: []
+  dialogEmoticonsImages:
+  - {fileID: 512459007, guid: 52724cdc697c9614e8583c96ed33f7c5, type: 3}
+  - {fileID: 1169236023, guid: 52724cdc697c9614e8583c96ed33f7c5, type: 3}
+  - {fileID: -1780293013, guid: 52724cdc697c9614e8583c96ed33f7c5, type: 3}
+  - {fileID: 918406961, guid: 52724cdc697c9614e8583c96ed33f7c5, type: 3}
+  - {fileID: -599960974, guid: 52724cdc697c9614e8583c96ed33f7c5, type: 3}
+  - {fileID: -283738938, guid: 52724cdc697c9614e8583c96ed33f7c5, type: 3}
   agentLLMMemory: {fileID: 11400000, guid: 49dee421deffa2845b046933e7190785, type: 2}
   permanentMemories:
   - {fileID: 11400000, guid: 2bddcf757144a504684afa8f8463ec13, type: 2}
+  - {fileID: 11400000, guid: c89cb175c0013c24493de35d71513cce, type: 2}
   fileEmbeddings:
   - {fileID: 11400000, guid: ab46f58ad3f6a5e4389ddb6537c75aee, type: 2}
   - {fileID: 11400000, guid: 2461788c4bde9cd4396d1b0dd9bd9e11, type: 2}
-  talkInjectors:
-  - {fileID: 11400000, guid: 23bf29703b2a2ff4b81d720da000b2a7, type: 2}
+  talkInjectors: []
   agentActions: []

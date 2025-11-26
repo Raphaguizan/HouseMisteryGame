@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b44174e930414444bbad30a0d34b6ac, type: 3}
-  m_Name: DefaultConfig
+  m_Name: DefaultConfig Alibaba
   m_EditorClassIdentifier: 
-  model: openai/gpt-oss-20b
+  model: qwen/qwen3-32b
   temperature: 1
   max_completion_tokens: 512
   top_p: 1

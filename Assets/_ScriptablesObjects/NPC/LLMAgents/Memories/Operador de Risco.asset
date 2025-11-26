@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e769f1804f559d641b3f03e70b120bcd, type: 3}
   m_Name: Operador de Risco
   m_EditorClassIdentifier: 
-  npcID: 
+  npcID: OpRisco
   memory: []

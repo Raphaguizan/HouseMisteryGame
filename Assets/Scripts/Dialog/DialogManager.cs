@@ -39,6 +39,7 @@ namespace Guizan.Dialog
             sendButton.onClick.AddListener(SendButton);
             exitButton.onClick.AddListener(EndConversation);
             graphics.SetActive(false);
+            textArea.text = string.Empty;
         }
 
         private void Update()

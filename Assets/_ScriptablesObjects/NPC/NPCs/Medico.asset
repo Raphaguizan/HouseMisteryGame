@@ -12,13 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae670ecc9e5befb4f97089fa0965cba7, type: 3}
   m_Name: Medico
   m_EditorClassIdentifier: 
-  dialogEmoticonsImages: []
+  dialogEmoticonsImages:
+  - {fileID: -1158712981, guid: 48ded539969d9334dad609e4e0526f92, type: 3}
+  - {fileID: -1912353196, guid: 48ded539969d9334dad609e4e0526f92, type: 3}
+  - {fileID: -1628654277, guid: 48ded539969d9334dad609e4e0526f92, type: 3}
+  - {fileID: -1934504784, guid: 48ded539969d9334dad609e4e0526f92, type: 3}
+  - {fileID: 465747991, guid: 48ded539969d9334dad609e4e0526f92, type: 3}
+  - {fileID: 395942313, guid: 48ded539969d9334dad609e4e0526f92, type: 3}
   agentLLMMemory: {fileID: 11400000, guid: a61afc5444dd52c48a5ddb9be123e6f7, type: 2}
   permanentMemories:
   - {fileID: 11400000, guid: 2bddcf757144a504684afa8f8463ec13, type: 2}
+  - {fileID: 11400000, guid: ab083408583c32b41b3354e26f7c4bd6, type: 2}
   fileEmbeddings:
   - {fileID: 11400000, guid: ab46f58ad3f6a5e4389ddb6537c75aee, type: 2}
   - {fileID: 11400000, guid: 80fe8e0c107d4ca4a8c59b088439fab7, type: 2}
-  talkInjectors:
-  - {fileID: 11400000, guid: 23bf29703b2a2ff4b81d720da000b2a7, type: 2}
+  talkInjectors: []
   agentActions: []

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8424243101644064323}
   - component: {fileID: 6551655359538268016}
   m_Layer: 0
-  m_Name: LLMManager
+  m_Name: LLMGroq
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

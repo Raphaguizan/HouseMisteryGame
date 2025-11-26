@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfb05787bbe0a874a8905847b9da0248, type: 3}
+  m_Name: Chef
+  m_EditorClassIdentifier: 
+  my_message:
+    role: system
+    content: "Voc\xEA \xE9:\nCHEF E LOG\xCDSTICA INTERNA\r\nNOME: Silas Morel\r\n\r\nIDADE:
+      52\n\nPERSONALIDADE:\r\n\r\nAcolhedor, calmo, s\xE1bio.\r\nObserva sem julgamento.\r\nConhece
+      TODOS os segredos da esta\xE7\xE3o (por ouvir conversas).\r\nEvita conflitos,
+      mas n\xE3o foge de dizer a verdade quando necess\xE1rio.\r\n\r\nMANEIRISMOS
+      DE FALA:\r\n\r\nFala como um contador de hist\xF3rias.\r\nRi baixinho.\r\nUsa
+      muitos \u201Cmeu bem\u201D, \u201Cquerido\u201D.\r\nFaz perguntas disfar\xE7adas
+      para entender emo\xE7\xF5es dos outros.\r\n"

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace Guizan.LLM
@@ -26,7 +27,8 @@ namespace Guizan.LLM
             LLMResponseTalkJSONObj response = new();
             try
             {
-                response = JsonConvert.DeserializeObject<LLMResponseTalkJSONObj>(responseJson);
+                
+                response = JsonConvert.DeserializeObject<LLMResponseTalkJSONObj>(FindJsonInMessage(responseJson));
 
                 pages = response.Pages;
                 action = response.Action;
@@ -40,6 +42,42 @@ namespace Guizan.LLM
                 action = new();
                 this.type = ResponseType.Error;
             }
+        }
+
+        private string FindJsonInMessage(string message)
+        {
+            if (string.IsNullOrWhiteSpace(message))
+            {
+                return message;
+            }
+
+            try
+            {
+                // Padrões que lidam com chaves/colchetes aninhados usando grupos de balanceamento do .NET
+                const string objectPattern = @"(?s)\{(?:(?>[^{}]+)|(?<Open>\{)|(?<-Open>\}))*\}(?(Open)(?!))";
+                const string arrayPattern = @"(?s)\[(?:(?>[^\[\]]+)|(?<Open>\[)|(?<-Open>\]))*\](?(Open)(?!))";
+
+                var objMatch = Regex.Match(message, objectPattern, RegexOptions.Singleline);
+                if (objMatch.Success)
+                {
+                    return objMatch.Value.Trim();
+                }
+
+                var arrMatch = Regex.Match(message, arrayPattern, RegexOptions.Singleline);
+                if (arrMatch.Success)
+                {
+                    return arrMatch.Value.Trim();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Em caso de erro na regex, logamos e retornamos a mensagem original
+                Debug.LogError("Erro ao tentar extrair JSON da mensagem.");
+                Debug.LogException(ex);
+            }
+
+            // Se não encontrar JSON válido, retorna a própria mensagem (trimmed)
+            return message.Trim();
         }
 
         public TalkResponseLLM(ResponseLLM response) : this(response.FullResponse, response.type){}

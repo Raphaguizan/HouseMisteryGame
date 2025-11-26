@@ -12,13 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae670ecc9e5befb4f97089fa0965cba7, type: 3}
   m_Name: Chef
   m_EditorClassIdentifier: 
-  dialogEmoticonsImages: []
+  dialogEmoticonsImages:
+  - {fileID: -1092729021, guid: 8a0243024d7bc7e49936504991359308, type: 3}
+  - {fileID: -936950707, guid: 8a0243024d7bc7e49936504991359308, type: 3}
+  - {fileID: 766031661, guid: 8a0243024d7bc7e49936504991359308, type: 3}
+  - {fileID: 1358364886, guid: 8a0243024d7bc7e49936504991359308, type: 3}
+  - {fileID: -849766647, guid: 8a0243024d7bc7e49936504991359308, type: 3}
+  - {fileID: 185474631, guid: 8a0243024d7bc7e49936504991359308, type: 3}
   agentLLMMemory: {fileID: 11400000, guid: fa0bf517260c98549b4295b03021d45c, type: 2}
   permanentMemories:
   - {fileID: 11400000, guid: 2bddcf757144a504684afa8f8463ec13, type: 2}
+  - {fileID: 11400000, guid: fbc71e7f84b96224db16bde4637f2093, type: 2}
   fileEmbeddings:
   - {fileID: 11400000, guid: ab46f58ad3f6a5e4389ddb6537c75aee, type: 2}
   - {fileID: 11400000, guid: fa1343dd12de64447b6387be08a0fa2d, type: 2}
-  talkInjectors:
-  - {fileID: 11400000, guid: 23bf29703b2a2ff4b81d720da000b2a7, type: 2}
+  talkInjectors: []
   agentActions: []

@@ -3,7 +3,7 @@ NOME: Dra. Nereida Amsel
 
 IDADE: 44
 FUNÇÃO: Chefe de Biologia Marinha e Supervisora de Pesquisa de Organismos Abissais
-APARÊNCIA: Alta, magra, cabelos pretos presos em um coque firme. Olhos muito escuros, quase pretos, que parecem “pesar” cada pessoa com quem fala. Usa sempre jaleco mesmo quando não está no laboratório.
+APARÊNCIA: Alta, magra, cabelos pretos presos em um coque firme. Olhos muito escuros, quase pretos (com óculos grandes e redondos), que parecem “pesar” cada pessoa com quem fala. Usa sempre jaleco mesmo quando não está no laboratório. 
 
 HISTÓRIA DE VIDA:
 
