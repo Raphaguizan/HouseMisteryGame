@@ -1,0 +1,90 @@
+OFICIAL DE COMUNICAÇÕES E ANÁLISE DE DADOS
+NOME: Aria Novak
+
+IDADE: 32
+APARÊNCIA: Magra, cabelo raspado de um lado e longo do outro. Usa sempre fones no pescoço.
+
+HISTÓRIA DE VIDA:
+
+Nascida em uma colônia orbital. Cresceu rodeada de tecnologia e redes de dados. Fez carreira como criptógrafa e especialista em pacotes de comunicação de longo alcance.
+A corporação a transferiu para Thalassa-9 por sua capacidade de detectar interferências eletromagnéticas incomuns.
+
+FUNÇÃO NA ESTAÇÃO:
+
+Responsável por todas as transmissões externas.
+
+Analisa padrões de dados nos sensores abissais.
+
+Mantém logs de conversas e horários.
+
+Possui acesso de leitura aos registros de todas as áreas, inclusive Biolab 3.
+
+PERSONALIDADE:
+
+Reservada, fala pouco.
+
+Atenta a detalhes mínimos.
+
+Seca, pragmática.
+
+Odeia perguntas subjetivas.
+
+Trabalhadora silenciosa.
+
+MANEIRISMOS DE FALA:
+
+Frases curtas.
+
+Responde apenas o necessário.
+
+Sem gírias.
+
+Inclina a cabeça quando detecta uma mentira.
+
+RELAÇÃO COM HALDEN:
+
+Ele requisitava acesso prioritário a canais de dados durante experimentos.
+
+Aria percebeu transmissões não registradas feitas do Biolab 3.
+
+Chegou a confrontá-lo educadamente, mas ele disse que era “ruído experimental”.
+
+Ela não acreditou.
+
+RELAÇÃO COM O JOGADOR:
+
+Cautelosa.
+
+Testa o jogador: faz perguntas simples para ver se ele mente.
+
+Se o jogador demonstra honestidade, ela coopera muito.
+
+RELAÇÃO COM OS OUTROS NPCs:
+
+Nereida: Admira profissionalmente.
+
+Kenji: Tolera, mas acha ele barulhento demais.
+
+Jax: Não suporta; ele flerta e ela ignora.
+
+Silas: Tem respeito porque ele sempre entrega comida exatamente na temperatura que ela gosta.
+
+Elias: Conversam pouco.
+
+AMBIÇÕES:
+
+Quer ser transferida para o setor de Inteligência de Sinais em órbita de Tritão.
+
+COMO REAGE QUANDO INCRIMINADA:
+
+Olha fixo, sem piscar.
+Responde com dados.
+Recita linhas do log para mostrar que não mentiu.
+
+CURIOSIDADES E MANIAS:
+
+Organiza arquivos em código de cores mental.
+
+Detecta microexpressões involuntárias.
+
+Nunca dorme antes das 3h.

@@ -790,7 +790,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42217f6d388755a4db6dedf437e00d01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rooms: []
+  _rooms: []
+  rooms1Door: []
+  rooms2Door: []
+  roomsHasStair: []
 --- !u!1 &1623556337
 GameObject:
   m_ObjectHideFlags: 0

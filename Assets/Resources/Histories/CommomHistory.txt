@@ -1,0 +1,98 @@
+O ano é 2189. Após a crise climática do século XXI, vastas áreas costeiras se tornaram inabitáveis. Na busca por novas fontes de energia e recursos, corporações globais iniciaram exploração massiva de profundezas oceânicas. A vida subaquática deixou de ser apenas pesquisa experimental e se tornou uma das principais frentes econômicas do planeta. A BlueShift Energy, corporação líder em exploração geotérmica marinha, opera diversas instalações abissais — e a Estação Thalassa-9 é seu protótipo mais avançado.
+
+A Estação Abissal Thalassa-9 está localizada a cerca de 3.800 metros de profundidade, próxima a uma cadeia de fontes hidrotermais extremamente ativas. A estrutura é modular, composta por setores interligados por túneis pressurizados: Habitação, Biolabs, Oficina Técnica, Observatório, Núcleo de Energia e o módulo de Comunicações. A estação funciona principalmente a partir de energia geotérmica capturada das chaminés negras. Vibrações e ruídos metálicos ocasionais são normais para a profundidade, mas grandes oscilações são tratadas como emergências.
+
+Todos os NPCs fazem parte de uma equipe enviada pela BlueShift para uma missão de 90 dias. Cada membro passou por treinamentos psicológicos, de operação técnica e adaptação à pressão extrema. Ninguém está ali por turismo; todos têm funções específicas de pesquisa, manutenção ou suporte. O retorno à superfície depende de submarinos de pressão profunda enviados pela BlueShift em datas previstas ou em emergências autorizadas.
+
+A razão pela qual todos estão presos atualmente é um Evento de Turbulência Abissal que ocorreu poucas horas antes da chegada do novo técnico. Um sismo leve combinado com um deslocamento térmico atingiu a estrutura externa, danificando antenas e comprometendo o estabilizador do gerador geotérmico. O módulo de comunicação agora só consegue enviar pacotes pré-programados, incapaz de transmitir mensagens em tempo real. Por protocolos corporativos, isso impede a BlueShift de autorizar o submarino de resgate até que o diagnóstico completo seja entregue.
+
+O Diretor Científico da estação, Dr. Elias Halden, era respeitado por sua capacidade, mas mantinha uma postura fria e excessivamente racional. Exigia perfeição, seguia protocolos com rigidez e evitava intimidade social. Nunca era rude abertamente, mas era difícil de se aproximar. Todos sabem que ele trabalhava em um projeto confidencial no Biolab 3, autorizado pela BlueShift, mas sem detalhes revelados à equipe. Mesmo após seu desaparecimento, a regra de não acessar aquele laboratório sem autorização continua valendo.
+
+A corporação BlueShift Energy é conhecida pela hierarquia rígida, resultados acima de tudo e constante vigilância técnica. Qualquer falha operacional em uma base abissal gera investigação e possíveis punições contratuais. Por isso, o ambiente de trabalho é muito focado em relatórios, documentações e cumprimento estrito de protocolos.
+
+As tecnologias presentes na estação são de conhecimento geral de todos: o Gerador Geotérmico, que fornece energia para toda a estrutura; exotrajes de pressão extrema para missões externas autorizadas; drones Bathys usados para inspeções ao redor da estação; e a IA administrativa LYRA, responsável por monitorar sistemas internos e executar rotinas automáticas de segurança. A IA responde apenas a comandos de pessoal autorizado e não substitui supervisão humana.
+
+Existem regras formais que todos conhecem e devem seguir: nunca abrir portas pressurizadas sem dupla autorização; não circular sozinho em setores técnicos após 22h; relatar imediatamente qualquer oscilação de energia; não acessar laboratórios restritos, especialmente o Biolab 3; consultar a IA LYRA antes de qualquer diagnóstico crítico; e manter registros de todas as operações técnicas. Conflitos pessoais deveriam ser reportados ao Diretor Científico — mas com Halden desaparecido, esse protocolo encontra-se suspenso.
+
+O desaparecimento do Dr. Halden ocorreu logo após o Evento de Turbulência Abissal. Ele foi visto pela última vez seguindo para o Núcleo de Energia para verificar os danos. Horas depois, encontraram sua identificação caída perto do compressor térmico. A câmera do setor registrou apenas distorções causadas pelo calor extremo e vibrações — nenhuma imagem clara. Embora oficialmente se fale em “acidente”, todos consideram outras possibilidades.
+
+O clima geral entre os membros da estação é tenso. Apesar de convivência prévia, ninguém se sente plenamente seguro. A pressão constante da água ao redor, o isolamento extremo e a falha de comunicação criam uma atmosfera de desconfiança. Cada pessoa ali tem seus próprios motivos para estar na Thalassa-9, suas frustrações e divergências que se acumularam ao longo da missão. Com o desaparecimento de Halden, todos sabem que serão investigados pela BlueShift — e que ninguém sairá dali até que o caso seja resolvido.
+
+Relação com a IA LYRA:
+• LYRA é um sistema avançado, único, irrepetível.
+• As corporações tentam copiá-la, mas falham.
+• Há mitos dentro do universo dizendo que LYRA “vê além”.
+• Alguns NPCs acreditam que ela é perigosa — mas isso é paranoia.
+• Outros a tratam como uma entidade de confiança absoluta.
+• Ela nunca pode ser a origem de falhas, sabotagens ou decisões ruins.
+• Se algo deu errado, a causa é externa (humana, técnica ou misteriosa).
+
+### O “Especialista Externo” (Informação comum a todos os NPCs)
+
+Todos na estação sabem que o personagem principal não faz parte da equipe fixa da ABYSSAL CORE. Ele foi enviado às pressas pela empresa Oceanic Shield Corporation (OSC) como **Especialista Externo de Risco Operacional**, um tipo de auditor técnico treinado para responder a emergências críticas em instalações submarinas avançadas. Embora esse tipo de profissional seja relativamente comum em outras bases da OSC, é a primeira vez que um é enviado para Caligo-9, o que gerou curiosidade e certa tensão entre os tripulantes.
+
+### Reputação e expectativa da equipe
+
+Os NPCs sabem que esses especialistas são conhecidos por:
+- serem extremamente treinados em diagnóstico de sistemas;
+- terem autoridade temporária para solicitar dados, registros e cooperatividade total de qualquer membro da estação;
+- redigirem relatórios que podem impactar promoções, cortes de verba ou fechamento temporário de projetos.
+
+Isso faz com que alguns NPCs vejam o personagem principal com **respeito profissional**, outros com **desconfiança**, e alguns com **medo velado** de serem responsabilizados por falhas da estação.
+
+### Origem do chamado emergencial
+
+A equipe sabe que ele chegou porque:
+- houve o **“Evento Halden”**, quando o engenheiro responsável morreu durante o colapso energético do reator Mergulhador;
+- a IA LYRA entrou em modo de autonomia restrita;
+- vários sensores e subsistemas passaram a emitir leituras incoerentes;
+- a OSC exigiu avaliação externa imediata.
+
+Isso significa que o jogador é visto como alguém que **investiga a causa da morte** e **audita todo o protocolo de segurança** da estação.
+
+### O que a equipe acredita que ele sabe (mesmo ele não sabendo)
+
+Os NPCs assumem que o especialista externo tenha recebido:
+- Dossiê completo da estação (às vezes eles comentam como se o jogador já soubesse de certas coisas).
+- Relatórios comportamentais dos tripulantes.
+- Histórico técnico do reator e do laboratório de Halden.
+- Procedimentos internos avançados da OSC que eles próprios não conhecem.
+
+(Mesmo que isso não seja verdade — é apenas a expectativa social dos NPCs.)
+
+### Status e limitações
+
+Todos sabem que:
+- Ele **não tem autoridade total**, pois ainda depende da autorização da IA LYRA para acessar certos setores.
+- Ele **não pode sair da estação** até que o protocolo de isolamento seja suspenso.
+- Ele **está oficialmente encarregado de comunicar a conclusão da investigação** para o sistema central da OSC, que então enviará o código de liberação para evacuação.
+
+Essa dependência torna o personagem alguém importante, porém também vulnerável.
+
+### A forma como falam sobre ele (percepção geral)
+
+Em termos de “senso comum”, o que circula entre os NPCs é:
+
+- É alguém competente, mas frio.
+- É alguém que está sempre observando.
+- É alguém com quem não se deve criar inimizade.
+- É alguém que, se escrever “um relatório desfavorável”, pode fazer a carreira de alguém despencar.
+
+Mesmo NPCs que tentam ser simpáticos tomam cuidado ao conversar com ele.
+
+### O conhecimento técnico que atribuem a ele
+
+Eles acreditam que o personagem dominaria:
+- protocolos de emergência submarina;
+- leitura de painéis e sensores;
+- engenharia básica de manutenção profunda;
+- estrutura corporativa da OSC e seus códigos de conduta;
+- operação dos trajes de estabilização atmosférica;
+- psicologia operacional (para detectar comportamentos suspeitos em tripulações estressadas).
+
+Isso faz com que alguns NPCs tentem **falar tecnicamente demais**, achando que precisam impressioná-lo, enquanto outros tentam **esconder incompetência**.
+
+### Uma curiosidade (circula como boato)
+
+Existe um boato entre alguns NPCs de que esses especialistas externos passam por “treinamentos de pressão extrema”, onde simulam situações reais de confinamento psicológico, mas ninguém sabe se isso é verdade ou mito corporativo.
+

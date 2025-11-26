@@ -9,18 +9,40 @@ namespace Guizan.House
     public class RoomsTypeHandler : MonoBehaviour
     {
         [SerializeField]
-        private List<RoomController> rooms;
+        private List<RoomController> _rooms;
+        [SerializeField]
+        private List<RoomController> rooms1Door = new();
+        [SerializeField]
+        private List<RoomController> rooms2Door = new();
+        [SerializeField]
+        private List<RoomController> roomsHasStair = new();
+
         private HouseManager manager;
         private void Awake()
         {
             manager = GetComponent<HouseManager>();
-            rooms = new();
+            _rooms = new();
         }
 
         private IEnumerator Start()
         {
             yield return new WaitUntil(() => manager.IsInitialized);
-            rooms = manager.GetRooms();
+            _rooms = manager.GetRooms();
+            ClassifyRooms(_rooms);
+        }
+
+        public void ClassifyRooms(List<RoomController> rooms)
+        {
+            foreach (RoomController room in rooms)
+            {
+                int doorCount = room.CountDoors();
+                if (room.GetWallType(WallSide.Ceiling) == WallType.Door || room.GetWallType(WallSide.Floor) == WallType.Door)
+                    roomsHasStair.Add(room);
+                else if (doorCount == 1)
+                    rooms1Door.Add(room);
+                else if (doorCount == 2)
+                    rooms2Door.Add(room);
+            }
         }
 
         //private void ChooseSecretRoom()
