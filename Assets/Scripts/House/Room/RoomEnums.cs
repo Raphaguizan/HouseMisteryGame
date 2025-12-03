@@ -18,15 +18,19 @@ namespace Guizan.House.Room
     public enum RoomType
     {
         Default,
-        Bedroom,
-        Kitchen,
-        Bathroom,
-        LivingRoom,
-        DiningRoom,
-        Hallway,
-        Office,
-        Storage,
-        Garage,
-        GardenRoom
+        corredor,
+        observatorio,
+        Biolab1,
+        Biolab2,
+        Biolab3,
+        Cultura,
+        Energia,
+        Oficina,
+        Comunicacao,
+        Hangar,
+        Enfermaria,
+        Dormitorios,
+        Cozinha,
+        Refeitorio
     }
 }

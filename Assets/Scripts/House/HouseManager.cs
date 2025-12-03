@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 namespace Guizan.House
@@ -21,14 +22,14 @@ namespace Guizan.House
         private float horizontalDist;
         [SerializeField]
         private float verticalDist;
-        [Space, SerializeField, Range(0f,1f)]
+        [Space, SerializeField, Range(0f, 1f)]
         private float ChanceToDoor2 = .2f;
-        [SerializeField, Range(0f,1f), Tooltip("horizontalBias: 0.0 = só verticais, 1.0 = só horizontais")]
+        [SerializeField, Range(0f, 1f), Tooltip("horizontalBias: 0.0 = só verticais, 1.0 = só horizontais")]
         private float horizontalBias = .75f;
-        [SerializeField, Range(0f,1f)]
+        [SerializeField, Range(0f, 1f)]
         private float extraDoorPercentage = .2f;
 
-        [Space, SerializeField, Range(0f,1f)]
+        [Space, SerializeField, Range(0f, 1f)]
         private float density = 1f; // 1 = todos os quartos, 0 = só o quarto inicial
 
         private RoomController[,] roonsMatrix;
@@ -39,9 +40,25 @@ namespace Guizan.House
         public bool IsInitialized => initialized;
 
         void Start()
-        {            
+        {
             initialized = false;
             InstantiateRoons();
+        }
+
+        public RoomController CreateRoom(Vector2Int pos)
+        {
+            if (roonsMatrix[pos.x, pos.y] != null)
+            {
+                Debug.LogWarning($"can't create a new room in a occupied slot ({pos.x},{pos.y})");
+                return null;
+            }
+            var newRoom = Instantiate(roomPrefab, roonsParent).transform;
+            newRoom.localPosition = new Vector3(pos.x * -horizontalDist, pos.y * -verticalDist);
+            newRoom.name = $"Room({pos.x},{pos.y})";
+            RoomController myNewRoom = newRoom.GetComponent<RoomController>();
+            myNewRoom.SetCurrentPos(pos);
+            roonsMatrix[pos.x, pos.y] = myNewRoom;
+            return myNewRoom;
         }
 
         private void InstantiateRoons()
@@ -67,10 +84,7 @@ namespace Guizan.House
 
             foreach (var pos in instantiateOrder)
             {
-                var newRoom = Instantiate(roomPrefab, roonsParent).transform;
-                newRoom.localPosition = new Vector3(pos.x * -horizontalDist, pos.y * -verticalDist);
-                newRoom.name = $"Room({pos.x},{pos.y})";
-                roonsMatrix[pos.x, pos.y] = newRoom.GetComponent<RoomController>();
+                _ = CreateRoom(pos);
             }
 
             //AddLocalCycles(); // Adiciona ciclos locais após a geração inicial
@@ -90,7 +104,7 @@ namespace Guizan.House
             initialized = true;
             Debug.Log("Mapa gerado com sucesso e totalmente conectado!");
         }
-        
+
         private Vector2Int? FindFirstOccupied(bool[,] occ)
         {
             for (int x = 0; x < matrixDim.x; x++)
@@ -332,6 +346,11 @@ namespace Guizan.House
             }
         }
 
+        public void OpenPassage(Vector2Int vec1, Vector2Int vec2)
+        {
+            OpenPassage(vec1.x, vec1.y, vec2.x, vec2.y);
+        }
+
         private void OpenPassage(int x1, int y1, int x2, int y2)
         {
             RoomController current = roonsMatrix[x1, y1];
@@ -383,9 +402,9 @@ namespace Guizan.House
                         {
                             xIndex--;
                         }
-                        if (xIndex >= 0 && x - 1 < matrixDim.x && roonsMatrix[x-1, y] != null)
+                        if (xIndex >= 0 && x - 1 < matrixDim.x && roonsMatrix[x - 1, y] != null)
                         {
-                            roonsMatrix[xIndex, y].AdaptColliderPointsToRight(roonsMatrix[x-1, y]);                    
+                            roonsMatrix[xIndex, y].AdaptColliderPointsToRight(roonsMatrix[x - 1, y]);
                         }
                     }
                 }
@@ -471,7 +490,7 @@ namespace Guizan.House
                     possibleDirs.Add(Vector2Int.up);
 
                 // BAIXO
-                if (pos.y < height - 1  && current.GetWallType(WallSide.Floor) == WallType.Full && (!secretRoom.HasValue || new Vector2Int(pos.x, pos.y - 1) != secretRoom.Value))
+                if (pos.y < height - 1 && current.GetWallType(WallSide.Floor) == WallType.Full && (!secretRoom.HasValue || new Vector2Int(pos.x, pos.y - 1) != secretRoom.Value))
                     possibleDirs.Add(Vector2Int.down);
 
                 // DIREITA
@@ -485,7 +504,7 @@ namespace Guizan.House
                 if (possibleDirs.Count <= 1)
                     continue;
 
-                
+
                 // Escolhe uma direção aleatória
                 var possibleDirsShuffled = ShuffleDirections(possibleDirs);
                 int nx, ny;
@@ -718,11 +737,8 @@ namespace Guizan.House
                         var p = path[i];
                         if (roonsMatrix[p.x, p.y] == null)
                         {
-                            var newRoom = Instantiate(roomPrefab, roonsParent).transform;
-                            newRoom.localPosition = new Vector3(p.x * -horizontalDist, p.y * -verticalDist);
-                            newRoom.name = $"Room({p.x},{p.y})";
-                            roonsMatrix[p.x, p.y] = newRoom.GetComponent<RoomController>();
-                            occupied.Add(new Vector2Int(p.x, p.y));
+                            _ = CreateRoom(p);
+                            occupied.Add(new(p.x, p.y));
                             budget--;
                             //Debug.Log($"Criado comodo intermediário em ({p.x},{p.y}) para aproximar {a} <-> {b}. Orçamento restante: {budget}");
                         }
@@ -733,6 +749,19 @@ namespace Guizan.House
             Debug.Log($"CreateShortcuts finalizado. Novos quartos criados: {Mathf.RoundToInt(createdRooms * extraDoorPercentage) - budget} (orçamento inicial {Mathf.RoundToInt(createdRooms * extraDoorPercentage)}).");
         }
 
+        public Vector2Int GetRandomEmptySlot()
+        {
+            List<Vector2Int> emptySlots = new();
+            for (int x = 0; x < matrixDim.x; x++)
+                for (int y = 0; y < matrixDim.y; y++)
+                    if (roonsMatrix[x, y] == null)
+                        emptySlots.Add(new Vector2Int(x, y));
+            if (emptySlots.Count == 0)
+                return new Vector2Int(-1, -1);
+            int randomIndex = rand.Next(emptySlots.Count);
+            return emptySlots[randomIndex];
+        }
+
         public List<RoomController> GetRooms()
         {
             List<RoomController> resp = new();
@@ -740,13 +769,70 @@ namespace Guizan.House
                 for (int y = 0; y < matrixDim.y; y++)
                     if (roonsMatrix[x, y] != null)
                         resp.Add(roonsMatrix[x, y]);
-                    
+
             return resp;
         }
 
         public int CountOccupied()
         {
             return GetRooms().Count;
+        }
+
+        public RoomController GetNeighborRoom(RoomController room, WallSide side)
+        {
+            for (int x = 0; x < matrixDim.x; x++)
+                for (int y = 0; y < matrixDim.y; y++)
+                    if (roonsMatrix[x, y] == room)
+                    {
+                        int nx = x, ny = y;
+                        switch (side)
+                        {
+                            case WallSide.Left:
+                                nx = x + 1;
+                                break;
+                            case WallSide.Right:
+                                nx = x - 1;
+                                break;
+                            case WallSide.Floor:
+                                ny = y + 1;
+                                break;
+                            case WallSide.Ceiling:
+                                ny = y - 1;
+                                break;
+                        }
+                        if (nx >= 0 && ny >= 0 && nx < matrixDim.x && ny < matrixDim.y)
+                            return roonsMatrix[nx, ny];
+                        else
+                            return null;
+                    }
+            return null;
+        }
+
+        public List<WallSide> FindRoomNeigbours(RoomController room)
+        {
+            return FindRoomNeigbours(room.CurerntPos);
+        }
+        public List<WallSide> FindRoomNeigbours(Vector2Int roomPos)
+        {
+            List<WallSide> resp = new();
+            List<(Vector2Int, WallSide)> NeigboursPos = new()
+            {
+                (new Vector2Int(roomPos.x + 1, roomPos.y), WallSide.Left),
+                (new Vector2Int(roomPos.x - 1, roomPos.y), WallSide.Right),
+                (new Vector2Int(roomPos.x, roomPos.y + 1), WallSide.Floor),
+                (new Vector2Int(roomPos.x, roomPos.y - 1), WallSide.Ceiling)
+            };
+
+            for (int i = 0; i < NeigboursPos.Count; i++)
+            {
+                Vector2Int currentPos = NeigboursPos[i].Item1;
+                if (currentPos.x < 0 || currentPos.y < 0 || currentPos.x >= matrixDim.x || currentPos.y >= matrixDim.y)
+                    continue;
+                if (roonsMatrix[currentPos.x, currentPos.y] != null)
+                    resp.Add(NeigboursPos[i].Item2);
+            }
+
+            return resp;
         }
     }
 }

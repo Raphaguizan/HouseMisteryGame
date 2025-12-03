@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05cdbaa4c5239a842bc8efe25b84eefd, type: 3}
+  m_Name: RequiredConfigs
+  m_EditorClassIdentifier: 
+  configs:
+  - MyType: 3
+    NumDoors: 1
+    CanHaveStairs: 1
+  - MyType: 4
+    NumDoors: 1
+    CanHaveStairs: 1
+  - MyType: 5
+    NumDoors: 1
+    CanHaveStairs: 1
+  - MyType: 9
+    NumDoors: 2
+    CanHaveStairs: 1
+  - MyType: 6
+    NumDoors: 2
+    CanHaveStairs: 1
+  - MyType: 2
+    NumDoors: 2
+    CanHaveStairs: 0
+  - MyType: 7
+    NumDoors: 2
+    CanHaveStairs: 1
+  - MyType: 8
+    NumDoors: 2
+    CanHaveStairs: 1
+  - MyType: 10
+    NumDoors: 2
+    CanHaveStairs: 1
+  - MyType: 11
+    NumDoors: 2
+    CanHaveStairs: 1
+  - MyType: 12
+    NumDoors: 2
+    CanHaveStairs: 1
+  - MyType: 13
+    NumDoors: 2
+    CanHaveStairs: 0
+  - MyType: 14
+    NumDoors: 2
+    CanHaveStairs: 1
+  - MyType: 1
+    NumDoors: 2
+    CanHaveStairs: 0
+  - MyType: 1
+    NumDoors: 2
+    CanHaveStairs: 0
+  - MyType: 1
+    NumDoors: 2
+    CanHaveStairs: 0
+  - MyType: 1
+    NumDoors: 2
+    CanHaveStairs: 0

@@ -13,7 +13,7 @@ public class NavMeshHandler : MonoBehaviour
     }
     private IEnumerator Start()
     {
-        yield return new WaitForEndOfFrame();
+        yield return new WaitUntil(()=>InitializeHandler.Initialized);
         navMeshSurface.BuildNavMesh();
     }
 }

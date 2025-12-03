@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,10 +27,22 @@ namespace Guizan.House.Room
         [SerializeField]
         private WallHandler ceilingHandler;
 
+        [SerializeField, ReadOnly]
+        private Vector2Int currentMatrixPos;
+
         public RoomType RoomType => roomType;
         public Vector2[] ColPoligonPoints => TransformPointsToWorldPos(roomCollider.Poligon.points);
         public bool HasCollider => roomCollider.gameObject.activeInHierarchy;
+        public Vector2Int CurerntPos => currentMatrixPos;
 
+        public void SetCurrentPos(int x, int y)
+        {
+            SetCurrentPos(new(x, y));
+        }
+        public void SetCurrentPos(Vector2Int newPos)
+        {
+            currentMatrixPos = newPos;
+        }
         private Vector2[] TransformPointsToWorldPos(Vector2[] points)
         {
             Vector2[] resp = new Vector2[points.Length];
@@ -50,6 +63,16 @@ namespace Guizan.House.Room
                 resp[i] = transform.InverseTransformPoint(points[i]);
             }
             return resp;
+        }
+
+        public void SetRoomType(RoomType newType) 
+        {
+            if (newType == roomType)
+                return;
+
+            roomType = newType;
+            gameObject.name += " "+newType.ToString();
+            // TODO CHANGE ART
         }
 
         public void AdaptColliderPointsToRight(RoomController rightOne)
@@ -91,6 +114,18 @@ namespace Guizan.House.Room
             rightWallHandler.ConfigureWall(right);
             floorHandler.ConfigureWall(floor);
             ceilingHandler.ConfigureWall(ceiling);
+        }
+
+        public WallSide OpositeWallSide(WallSide side)
+        {
+            return side switch
+            {
+                WallSide.Left => WallSide.Right,
+                WallSide.Right => WallSide.Left,
+                WallSide.Ceiling => WallSide.Floor,
+                WallSide.Floor => WallSide.Ceiling,
+                _ => WallSide.Left
+            };
         }
 
         public void ChangeWallType(WallSide side, WallType type)

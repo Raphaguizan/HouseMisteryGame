@@ -816,13 +816,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 4546778571518768371, guid: c9f8fd7f8540675439f2ea929e8a477a, type: 3}
   roonsParent: {fileID: 418889147}
-  matrixDim: {x: 15, y: 6}
+  matrixDim: {x: 12, y: 6}
   horizontalDist: 24.2
   verticalDist: 9.2
-  ChanceToDoor2: 0.25
+  ChanceToDoor2: 0.4
   horizontalBias: 0.75
   extraDoorPercentage: 0.1
-  density: 0.4
+  density: 0.5
 --- !u!4 &1473036000
 Transform:
   m_ObjectHideFlags: 0
@@ -851,6 +851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42217f6d388755a4db6dedf437e00d01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _roomsRequiredConfig: {fileID: 11400000, guid: 5aa2330f941e4234bba725c508e3c56d, type: 2}
   _rooms: []
   rooms1Door: []
   rooms2Door: []
