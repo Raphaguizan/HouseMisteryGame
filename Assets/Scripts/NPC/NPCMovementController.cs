@@ -8,7 +8,7 @@ using UnityEngine.AI;
 namespace Guizan.NPC
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class NPCMovement : MonoBehaviour
+    public class NPCMovementController : MonoBehaviour
     {
         [SerializeField]
         private Transform target;
@@ -30,6 +30,12 @@ namespace Guizan.NPC
             }
             Vector3 destination = targetPos == null?target.position : targetPos.Value;
             agent.SetDestination(destination);
+        }
+
+        [Button]
+        public void StopMovement()
+        {
+            agent.isStopped = true;
         }
     }
 }

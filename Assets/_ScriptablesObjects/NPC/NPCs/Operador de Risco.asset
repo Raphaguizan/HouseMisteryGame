@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Operador de Risco
   m_EditorClassIdentifier: 
   dialogEmoticonsImages:
-  - {fileID: 21300000, guid: cb3974267d11c8d428640f8fadfd9414, type: 3}
-  - {fileID: 21300000, guid: a7119192e311bb54d98b4c7b738b05d6, type: 3}
-  - {fileID: 21300000, guid: b860e7dca9b704845b229f98058259e8, type: 3}
-  - {fileID: 21300000, guid: ff885d2457ed2194885eb7115ae6f535, type: 3}
-  - {fileID: 21300000, guid: ec067f7e107282944aa5f5b91c469373, type: 3}
-  - {fileID: 21300000, guid: 3f07c11b6e18cf343a9925d1b80d287d, type: 3}
+  - {fileID: 844124535, guid: e8b9a2e52b4d204489fc2a1e74c6ac3f, type: 3}
+  - {fileID: 842487988, guid: e8b9a2e52b4d204489fc2a1e74c6ac3f, type: 3}
+  - {fileID: 1729285053, guid: e8b9a2e52b4d204489fc2a1e74c6ac3f, type: 3}
+  - {fileID: -827919804, guid: e8b9a2e52b4d204489fc2a1e74c6ac3f, type: 3}
+  - {fileID: 2130995953, guid: e8b9a2e52b4d204489fc2a1e74c6ac3f, type: 3}
+  - {fileID: 1663820044, guid: e8b9a2e52b4d204489fc2a1e74c6ac3f, type: 3}
   agentLLMMemory: {fileID: 11400000, guid: 54897d8e7a44b0a4e83dee69aabd10df, type: 2}
   permanentMemories:
   - {fileID: 11400000, guid: 2bddcf757144a504684afa8f8463ec13, type: 2}

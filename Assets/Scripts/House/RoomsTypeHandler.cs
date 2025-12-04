@@ -1,3 +1,4 @@
+using Game.Initialization;
 using Guizan.House.Room;
 using NaughtyAttributes;
 using System.Collections;
@@ -22,20 +23,23 @@ namespace Guizan.House
         [SerializeField]
         private List<RoomController> roomsHasStair = new();
 
-        private HouseManager manager;
+        [HideInInspector]
+        public HouseManager manager;
         private void Awake()
         {
+            InitializeHandler.SubscribeInitialization(this.GetType().Name);
             manager = GetComponent<HouseManager>();
             _rooms = new();
         }
 
         private IEnumerator Start()
         {
-            yield return new WaitUntil(() => manager.IsInitialized);
+            yield return new WaitUntil(() => InitializeHandler.IsInitialized(manager.GetType().Name));
             _rooms = manager.GetRooms();
             ClassifyRooms(_rooms);
             SetRooms();
-            InitializeHandler.Initialized = true;
+            manager.AdjustCamerasBounds();
+            InitializeHandler.SetInitialized(this.GetType().Name);
         }
 
         public void ClassifyRooms(List<RoomController> rooms)

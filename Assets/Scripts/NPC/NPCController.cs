@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Guizan.Dialog;
+using Unity.VisualScripting;
 
 namespace Guizan.NPC
 {
@@ -12,6 +13,9 @@ namespace Guizan.NPC
 
         [SerializeField]
         private SpriteRenderer mockOver;
+
+        [SerializeField]
+        private TMPro.TextMeshProUGUI mockName;
 
         private Color origColor;
 
@@ -32,6 +36,7 @@ namespace Guizan.NPC
         void Start()
         {
             origColor = mockOver.color;
+            mockName.text = _myConfigs.name;
         }       
     }
 }

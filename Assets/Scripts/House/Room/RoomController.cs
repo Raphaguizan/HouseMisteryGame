@@ -12,6 +12,10 @@ namespace Guizan.House.Room
     public class RoomController : MonoBehaviour
     {
         [SerializeField]
+        private TMPro.TextMeshProUGUI mockRoomType;
+
+        [Space]
+        [SerializeField]
         private RoomPlayerCollider roomCollider;
 
         [SerializeField]
@@ -73,6 +77,7 @@ namespace Guizan.House.Room
             roomType = newType;
             gameObject.name += " "+newType.ToString();
             // TODO CHANGE ART
+            mockRoomType.text = newType.ToString();
         }
 
         public void AdaptColliderPointsToRight(RoomController rightOne)

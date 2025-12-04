@@ -246,6 +246,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC
       objectReference: {fileID: 0}
+    - target: {fileID: 4812250705742631604, guid: 678b1a684a3cf584b99351a18f672e41, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5322091182538279651, guid: 678b1a684a3cf584b99351a18f672e41, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10
@@ -795,6 +799,7 @@ GameObject:
   - component: {fileID: 1473036000}
   - component: {fileID: 1473035999}
   - component: {fileID: 1473036001}
+  - component: {fileID: 1473036002}
   m_Layer: 0
   m_Name: House 2
   m_TagString: Untagged
@@ -856,6 +861,32 @@ MonoBehaviour:
   rooms1Door: []
   rooms2Door: []
   roomsHasStair: []
+  manager: {fileID: 1473035999}
+--- !u!114 &1473036002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473035998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55a3dcf109d46f2459e1f2b540cdb34a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcSpawnRooms:
+  - NPCPrefab: {fileID: 8430858029694275482, guid: 141f071bf65121243a5a611d03f5661f, type: 3}
+    roomType: 3
+  - NPCPrefab: {fileID: 8430858029694275482, guid: b9271b4a46987d343ad80c46c01c66e1, type: 3}
+    roomType: 9
+  - NPCPrefab: {fileID: 8430858029694275482, guid: c4889fab53691b34db9e4219f6fdd411, type: 3}
+    roomType: 13
+  - NPCPrefab: {fileID: 8430858029694275482, guid: d5793ab1560a1d146b938f14a00b28fd, type: 3}
+    roomType: 8
+  - NPCPrefab: {fileID: 8430858029694275482, guid: 433783b1efcdad3408effe1bf1f8ae7d, type: 3}
+    roomType: 11
+  - NPCPrefab: {fileID: 8430858029694275482, guid: 1f2564d9a592ade4ea0811c193d9e4fd, type: 3}
+    roomType: 10
 --- !u!1 &1481904393
 GameObject:
   m_ObjectHideFlags: 0

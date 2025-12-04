@@ -1,4 +1,5 @@
-﻿using Guizan.House.Room;
+﻿using Game.Initialization;
+using Guizan.House.Room;
 using NaughtyAttributes;
 using System;
 using System.Collections;
@@ -35,13 +36,14 @@ namespace Guizan.House
         private RoomController[,] roonsMatrix;
         private System.Random rand = new System.Random();
         private Nullable<Vector2Int> secretRoom = null;
-        private bool initialized = false;
 
-        public bool IsInitialized => initialized;
+        private void Awake()
+        {
+            InitializeHandler.SubscribeInitialization(this.GetType().Name);
+        }
 
         void Start()
         {
-            initialized = false;
             InstantiateRoons();
         }
 
@@ -99,9 +101,9 @@ namespace Guizan.House
                 Debug.LogError("Nenhuma sala ocupada foi gerada!");
 
             AddExtraDoors();
-            AdjustCamerasBounds();
+            //AdjustCamerasBounds();
 
-            initialized = true;
+            InitializeHandler.SetInitialized(this.GetType().Name);
             Debug.Log("Mapa gerado com sucesso e totalmente conectado!");
         }
 
@@ -386,7 +388,7 @@ namespace Guizan.House
             }
         }
 
-        private void AdjustCamerasBounds()
+        public void AdjustCamerasBounds()
         {
             for (int x = matrixDim.x - 1; x >= 0; x--)
             {
