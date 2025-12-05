@@ -46,7 +46,7 @@ namespace Guizan.House
         {
             foreach (RoomController room in rooms)
             {
-                if (room.CurerntPos == Vector2.zero)
+                if (room.CurrentPos == Vector2.zero)
                     continue;
                 int doorCount = room.CountDoors();
                 if (doorCount == 1 && room.GetWallType(WallSide.Ceiling) != WallType.Door && room.GetWallType(WallSide.Ceiling) != WallType.Door2)
@@ -115,7 +115,7 @@ namespace Guizan.House
             for (int i = 0; i < doorsSideToOpen.Count; i++)
             {
                 var currentNeighbour = manager.GetNeighborRoom(newRoom, doorsSideToOpen[i]);
-                manager.OpenPassage(newRoom.CurerntPos, currentNeighbour.CurerntPos);
+                manager.OpenPassage(newRoom.CurrentPos, currentNeighbour.CurrentPos);
             }
             Debug.Log($"Criada nova sala em {roomPos} com {doorsNum} portas.");
             _rooms.Add(newRoom);

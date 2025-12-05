@@ -1,3 +1,5 @@
+using Guizan.House;
+using Guizan.House.Room;
 using NaughtyAttributes;
 using System;
 using System.Collections;
@@ -36,6 +38,33 @@ namespace Guizan.NPC
         public void StopMovement()
         {
             agent.isStopped = true;
+        }
+
+        public void MoveToRoom(Vector2Int pos)
+        {
+            MoveToRoom(pos.x, pos.y);
+        }
+        public void MoveToRoom(int x, int y)
+        {
+            HouseManager manager = FindAnyObjectByType<HouseManager>();
+            if (manager == null)
+                return;
+            Transform room = manager.GetRooms().Find(r => r.CurrentPos.x == x && r.CurrentPos.y == y).transform;
+            MoveToPosition(room.position);
+        }
+
+        public void MoveToRoom (RoomType type)
+        {
+            HouseManager manager = FindAnyObjectByType<HouseManager>();
+            if (manager == null)
+                return;
+            Transform room = manager.GetRooms().Find(r => r.RoomType == type).transform;
+            MoveToPosition(room.position);
+        }
+
+        public bool IsMoving()
+        {
+            return agent.remainingDistance > agent.stoppingDistance;
         }
     }
 }

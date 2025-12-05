@@ -37,7 +37,7 @@ namespace Guizan.House.Room
         public RoomType RoomType => roomType;
         public Vector2[] ColPoligonPoints => TransformPointsToWorldPos(roomCollider.Poligon.points);
         public bool HasCollider => roomCollider.gameObject.activeInHierarchy;
-        public Vector2Int CurerntPos => currentMatrixPos;
+        public Vector2Int CurrentPos => currentMatrixPos;
 
         public void SetCurrentPos(int x, int y)
         {

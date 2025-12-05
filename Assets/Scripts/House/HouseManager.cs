@@ -812,7 +812,7 @@ namespace Guizan.House
 
         public List<WallSide> FindRoomNeigbours(RoomController room)
         {
-            return FindRoomNeigbours(room.CurerntPos);
+            return FindRoomNeigbours(room.CurrentPos);
         }
         public List<WallSide> FindRoomNeigbours(Vector2Int roomPos)
         {

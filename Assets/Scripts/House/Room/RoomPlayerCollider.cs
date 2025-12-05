@@ -1,3 +1,4 @@
+using Guizan.NPC;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,6 +39,14 @@ namespace Guizan.House.Room
             if (!collision.CompareTag(playerTag)) return; 
             
             vCamera.SetActive(false);
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            NPCController npc = collision.GetComponent<NPCController>();
+            if (npc == null) return;
+
+            npc.SetCameraBounds(this.gameObject);
         }
     }
 }
