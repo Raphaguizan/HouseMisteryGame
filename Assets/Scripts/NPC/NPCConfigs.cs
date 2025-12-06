@@ -23,6 +23,8 @@ namespace Guizan.NPC
         private List<TalkInjectorBinder> talkInjectors;
         [SerializeField, Expandable]
         private List<AgentActionBinder> agentActions;
+        [SerializeField]
+        private GameObject npcPrefabObject;
 
         public List<Sprite> DialogEmoticonsImg => dialogEmoticonsImages;
         public AgentMemory AgentLLMMemory => agentLLMMemory;
@@ -30,5 +32,11 @@ namespace Guizan.NPC
         public List<FileEmbedding> FileEmbeddings => fileEmbeddings;
         public List<TalkInjectorBinder> TalkInjectors => talkInjectors;
         public List<AgentActionBinder> AgentActions => agentActions;
+        public GameObject NpcPrefab => npcPrefabObject;
+
+        public void SetNPCPrefab(GameObject newPrefab)
+        {
+            npcPrefabObject = newPrefab;
+        }
     }
 }

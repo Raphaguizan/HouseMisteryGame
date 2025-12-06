@@ -1,3 +1,4 @@
+using Guizan.Dialog;
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,6 +47,9 @@ namespace Guizan.NPC
             while (inRoom)
             {
                 yield return new WaitForSecondsRealtime(Random.Range(randomWaitTimeToMove.x, randomWaitTimeToMove.y));
+                yield return new WaitWhile(()=> DialogManager.Initialized);
+                yield return new WaitForEndOfFrame();
+                yield return new WaitWhile(() => MovementController.IsMoving());
                 MovementController.MoveToPosition(new Vector2(GenerateRandomXPos(currentXBounds), currentY));
                 yield return new WaitWhile(() => MovementController.IsMoving());
             }

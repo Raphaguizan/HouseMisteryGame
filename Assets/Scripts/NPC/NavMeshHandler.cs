@@ -3,6 +3,7 @@ using Guizan.House;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(NavMeshSurface))]
@@ -14,9 +15,14 @@ public class NavMeshHandler : MonoBehaviour
         InitializeHandler.SubscribeInitialization(this.GetType().Name);
         navMeshSurface = GetComponent<NavMeshSurface>();
     }
-    private IEnumerator Start()
+    private void Start()
     {
-        yield return new WaitUntil(()=> InitializeHandler.IsInitialized(typeof(RoomsTypeHandler).Name));
+        StartCoroutine(Initialize());
+    }
+
+    private IEnumerator Initialize()
+    {
+        yield return new WaitUntil(() => InitializeHandler.IsInitialized(typeof(RoomsTypeHandler).Name));
         navMeshSurface.BuildNavMesh();
         yield return new WaitForEndOfFrame();
         InitializeHandler.SetInitialized(this.GetType().Name);

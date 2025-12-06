@@ -23,7 +23,12 @@ namespace Guizan.House
             roomsTypeHandler = GetComponent<RoomsTypeHandler>();
         }
 
-        private IEnumerator Start()
+        private void Start()
+        {
+            StartCoroutine(Initialize());
+        }
+
+        private IEnumerator Initialize()
         {
             yield return new WaitUntil(() => InitializeHandler.IsInitialized(typeof(NavMeshHandler).Name));
             SpawnNPCs();

@@ -12,7 +12,7 @@ namespace Guizan.LLM.Agent
 
     public class AgentTalkManager : MonoBehaviour
     {
-        [SerializeField, ResizableTextArea, Tooltip("Frase que será enviada caso ocorra algum erroe o request não retornar Success.")]
+        [SerializeField, ResizableTextArea, Tooltip("Frase que serï¿½ enviada caso ocorra algum erroe o request nï¿½o retornar Success.")]
         private string defaultMessage = "Error";
 
 

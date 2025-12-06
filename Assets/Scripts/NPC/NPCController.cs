@@ -45,6 +45,7 @@ namespace Guizan.NPC
         {
             origColor = mockOver.color;
             mockName.text = _myConfigs.name;
+            _myConfigs.SetNPCPrefab(this.gameObject);
         }
         
         public RoomController GetCurrentRoom()

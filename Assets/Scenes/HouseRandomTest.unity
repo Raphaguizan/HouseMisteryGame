@@ -659,6 +659,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LLM_Managers
       objectReference: {fileID: 0}
+    - target: {fileID: 4439560728176875916, guid: bde02c0dea9638b498d72475634357ee, type: 3}
+      propertyPath: apiKey
+      value: 
+      objectReference: {fileID: 11400000, guid: 2dc77cf776c8f274783fa48612610316, type: 2}
     - target: {fileID: 5687589610877930267, guid: bde02c0dea9638b498d72475634357ee, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.54848135
@@ -699,6 +703,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8132224338461274056, guid: bde02c0dea9638b498d72475634357ee, type: 3}
+      propertyPath: groqKey
+      value: 
+      objectReference: {fileID: 11400000, guid: d6f14ec51e7d17644adffaf44e787449, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

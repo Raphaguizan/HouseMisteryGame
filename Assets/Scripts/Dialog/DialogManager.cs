@@ -52,7 +52,7 @@ namespace Guizan.Dialog
             CheckSendButton();
         }
 
-        public static void InitializeDialog(NPCConfigs npc, string initialMessage = "Olá!")
+        public static void InitializeDialog(NPCConfigs npc, string initialMessage = "Olï¿½!")
         {
             if (npc == null || Initialized)
                 return;
@@ -61,7 +61,7 @@ namespace Guizan.Dialog
             Instance.graphics.SetActive(true);
 
             GameObject agentGO = Instance.talkManager.gameObject;
-            //Adiciona as memórias permanentes
+            //Adiciona as memï¿½rias permanentes
             if (agentGO.TryGetComponent<AgentMemoryManager>(out AgentMemoryManager memoryManager))
                 memoryManager.SetMemory(npc.AgentLLMMemory, npc.PermanentMemories);
 
@@ -74,8 +74,8 @@ namespace Guizan.Dialog
                 injectors.SetList(npc.TalkInjectors);
 
             //Adiciona os AgentsActions
-            //if (agentGO.TryGetComponent<AgentActionsManager>(out AgentActionsManager actionsManager))
-            //    actionsManager.SetList(npc.AgentActions);
+            if (agentGO.TryGetComponent<AgentActionsManager>(out AgentActionsManager actionsManager))
+                actionsManager.SetList(npc: npc.NpcPrefab);
 
             Instance.talkManager.StartConversation();
 
@@ -89,7 +89,7 @@ namespace Guizan.Dialog
         private void CheckSendButton()
         {
 
-            // Ajusta o inputfield para terminar a converça
+            // Ajusta o inputfield para terminar a converï¿½a
             if (agentManager.InLastPage && textArea.enabled == false && conversationFinalized)
             {
                 sendButton.GetComponentInChildren<TextMeshProUGUI>().text = "Sair";
@@ -117,10 +117,10 @@ namespace Guizan.Dialog
                 return;
             }
 
-            // Ajusta o inputfield para antes da ultima página (não pode enviar mensagem)
+            // Ajusta o inputfield para antes da ultima pï¿½gina (nï¿½o pode enviar mensagem)
             if (!agentManager.InLastPage && textArea.enabled == true)
             {
-                sendButton.GetComponentInChildren<TextMeshProUGUI>().text = "Próxima Página";
+                sendButton.GetComponentInChildren<TextMeshProUGUI>().text = "Prï¿½xima Pï¿½gina";
                 var placeholderText = textArea.placeholder as TMP_Text;
                 textArea.text = string.Empty;
                 if (placeholderText != null)

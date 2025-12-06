@@ -32,8 +32,14 @@ namespace Guizan.House
             _rooms = new();
         }
 
-        private IEnumerator Start()
+        private void Start()
         {
+            StartCoroutine(Initialize());
+        }
+
+        private IEnumerator Initialize()
+        {
+            yield return new WaitForEndOfFrame();
             yield return new WaitUntil(() => InitializeHandler.IsInitialized(manager.GetType().Name));
             _rooms = manager.GetRooms();
             ClassifyRooms(_rooms);
@@ -58,7 +64,7 @@ namespace Guizan.House
             }
         }
 
-        // TODO selecionar salas com base em critérios específicos
+        // TODO selecionar salas com base em critï¿½rios especï¿½ficos
 
         public void SelectRoom(RoomController selectedRoom, RoomType selectedType)
         {
@@ -129,7 +135,7 @@ namespace Guizan.House
                 var selectedList = GetListByNumDoors(i);
                 if (_roomsRequiredConfig.CountDoors(i) > selectedList.Count)
                 {
-                    Debug.LogWarning($"Não há quartos suficientes com {i} portas para atender à configuração necessária.");
+                    Debug.LogWarning($"Nï¿½o hï¿½ quartos suficientes com {i} portas para atender ï¿½ configuraï¿½ï¿½o necessï¿½ria.");
                     return false;
                 }
             }

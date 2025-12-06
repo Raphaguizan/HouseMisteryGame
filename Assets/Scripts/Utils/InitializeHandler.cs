@@ -51,7 +51,7 @@ namespace Game.Initialization
             {
                 return Initialized[key];
             }
-            return false;
+            return true;
         }
 
         public static bool IsAllInitialized()

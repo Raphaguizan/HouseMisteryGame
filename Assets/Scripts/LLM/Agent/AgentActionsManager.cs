@@ -10,16 +10,25 @@ namespace Guizan.LLM.Agent
         [SerializeField]
         private List<AgentActionBinder> actionSubscribe = new();
 
-        public void SetList(List<AgentActionBinder> newActionList)
+        private GameObject NPCGameObj;
+
+        public void SetList(List<AgentActionBinder> newActionList = null, GameObject npc = null)
         {
-            actionSubscribe.Clear();
-            actionSubscribe = newActionList;
+            if (newActionList != null)
+            {
+                actionSubscribe.Clear();
+                actionSubscribe = newActionList;
+            }
+            if (npc != null)
+            {
+                NPCGameObj = npc;
+            }
         }
         public void Subscribe(AgentActionBinder action)
         {
             if(actionSubscribe.Exists(act => act.Type == action.Type))
             {
-                Debug.LogWarning("Já exite uma ação desse tipo ("+action.Type+") cadastrada");
+                Debug.LogWarning("JÃ¡ exite uma aÃ§Ã£o desse tipo ("+action.Type+") cadastrada");
                 return;
             }
             actionSubscribe.Add(action);
@@ -27,7 +36,11 @@ namespace Guizan.LLM.Agent
 
         public void MakeAction(LLMAction action)
         {
-            Debug.Log("chamou a ação " + action.Type);
+            Debug.Log("chamou a aÃ§Ã£o " + action.Type);
+            if (NPCGameObj != null)
+            {
+                action.Parameters["NPC"] = NPCGameObj;
+            }
             actionSubscribe.Find(script => script.Type.Equals(action.Type))?.MakeAction(action.Parameters);
         }
 
@@ -35,7 +48,7 @@ namespace Guizan.LLM.Agent
         {
             if (HasEqual())
             {
-                Debug.LogError("Exitem dois elementos na lista de scripts com o mesmo tipo de ação");
+                Debug.LogError("Exitem dois elementos na lista de scripts com o mesmo tipo de aÃ§Ã£o");
             }
         }
 

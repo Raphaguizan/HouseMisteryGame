@@ -133,3 +133,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Guizan.LLM.Agent.AgentActionsManager
   actionSubscribe:
   - {fileID: 11400000, guid: 9ca63a3c1976f58428bef44dc6b544bb, type: 2}
+  - {fileID: 11400000, guid: e7162ae1f6a74de4f87a3ec7dfe56d05, type: 2}

@@ -103,8 +103,8 @@ namespace Guizan.House
             AddExtraDoors();
             //AdjustCamerasBounds();
 
-            InitializeHandler.SetInitialized(this.GetType().Name);
             Debug.Log("Mapa gerado com sucesso e totalmente conectado!");
+            InitializeHandler.SetInitialized(this.GetType().Name);
         }
 
         private Vector2Int? FindFirstOccupied(bool[,] occ)

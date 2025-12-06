@@ -1,3 +1,4 @@
+using Guizan.Dialog;
 using Guizan.House;
 using Guizan.House.Room;
 using NaughtyAttributes;
@@ -21,13 +22,29 @@ namespace Guizan.NPC
             agent.updateRotation = false;
             agent.updateUpAxis = false;
         }
+        private void OnEnable()
+        {
+            StartCoroutine(MovementDialogController());
+        }
+
+        private IEnumerator MovementDialogController()
+        {
+            while (gameObject.activeInHierarchy)
+            {
+                yield return new WaitUntil(() => DialogManager.Initialized);
+                agent.isStopped = true;
+                yield return new WaitWhile(() => DialogManager.Initialized);
+                agent.isStopped = false;
+            }
+
+        }
 
         [Button]
         public void MoveToPosition(Nullable<Vector2> targetPos = null)
         {
             if (!agent.isOnNavMesh)
             {
-                Debug.LogWarning("O agente n�o est� em uma navMesh.");
+                Debug.LogWarning("O agente não está em uma navMesh.");
                 return;
             }
             Vector3 destination = targetPos == null?target.position : targetPos.Value;
@@ -59,6 +76,7 @@ namespace Guizan.NPC
             if (manager == null)
                 return;
             Transform room = manager.GetRooms().Find(r => r.RoomType == type).transform;
+            Debug.Log($"Movendo para a sala do tipo {type} na posição {room.position}");
             MoveToPosition(room.position);
         }
 

@@ -28,11 +28,11 @@ MonoBehaviour:
       \"Texto da p\xE1gina 2 (m\xE1x. 150 caracteres)\",\r\n    ...\r\n  ],\r\n 
       \"Emoticon\": [\r\n    \"Emo\xE7\xE3o correspondente \xE0 p\xE1gina 1\",\r\n   
       \"Emo\xE7\xE3o correspondente \xE0 p\xE1gina 2\",\r\n    ...\r\n  ],\r\n  \"action\":
-      {\r\n    \"type\": \"none\" | \"end_conversation\" | \"follow_player\" | \"give_item\",\r\n   
-      \"parameters\": {\r\n      \"itemID\": \"item_id\",\r\n      \"quantity\":
-      1\r\n    }\r\n  }\r\n}\r\n\r\nREGRAS IMPORTANTES:\r\n\r\n1. Sempre responda
-      com JSON v\xE1lido. Nunca escreva fora do JSON.\r\n2. A lista \"pages\" cont\xE9m
-      as falas do personagem, cada p\xE1gina com no m\xE1ximo 150 caracteres.\r\n3.
+      {\r\n    \"type\": \"none\" | \"end_conversation\" | \"follow_player\" | \"give_item\"
+      | \"go_to\",\r\n    \"parameters\": {\r\n      \"itemID\": \"item_id\",\r\n     
+      \"quantity\": 1\r\n    }\r\n  }\r\n}\r\n\r\nREGRAS IMPORTANTES:\r\n\r\n1. Sempre
+      responda com JSON v\xE1lido. Nunca escreva fora do JSON.\r\n2. A lista \"pages\"
+      cont\xE9m as falas do personagem, cada p\xE1gina com no m\xE1ximo 150 caracteres.\r\n3.
       A lista \"Emoticon\" deve ter exatamente o mesmo n\xFAmero de elementos que
       \"pages\".\r\n4. Cada item em \"Emoticon\" deve representar a emo\xE7\xE3o
       sentida pelo personagem na p\xE1gina correspondente.\r\n5. Emo\xE7\xF5es permitidas
@@ -42,12 +42,20 @@ MonoBehaviour:
       : pensativo, refletindo.\r\n6. Se n\xE3o houver a\xE7\xE3o, use \"type\": \"none\".\r\n7.
       A\xE7\xF5es permitidas:\r\n   - none             : personagem apenas fala.\r\n  
       - end_conversation : personagem encerra o di\xE1logo.\r\n   - follow_player   
-      : personagem passa a seguir o jogador.\r\n   - give_item        : personagem
-      entrega um item ao jogador. Par\xE2metros (\"itemID\":id do item, \"quantity\":quantidade
-      do item)\r\n8. Nunca inclua explica\xE7\xF5es, coment\xE1rios ou textos fora
-      do JSON.\r\n9. Nunca utilize markdown, apenas texto puro.\r\n\r\nExemplo de
-      resposta v\xE1lida:\r\n\r\n{\r\n  \"pages\": [\r\n    \"Eu posso te acompanhar,
-      sim. Mas cuidado, este caminho \xE9 perigoso.\",\r\n    \"Fique perto de mim
-      e n\xE3o toque em nada estranho.\"\r\n  ],\r\n  \"Emoticon\": [\r\n    \"Thinking\",\r\n   
-      \"Default\"\r\n  ],\r\n  \"action\": {\r\n    \"type\": \"follow_player\",\r\n   
-      \"parameters\": {\r\n    }\r\n  }\r\n}\r\n\n**N\xC3O ESCREVA NADA FORA DO JSON**"
+      : personagem passa a seguir o jogador. Par\xE2metro (\"value\" : bool para
+      dizer se inicia a a\xE7\xE3o (true) ou termina(false))\r\n   - give_item       
+      : personagem entrega um item ao jogador. Par\xE2metros (\"itemID\":id do item,
+      \"quantity\":quantidade do item)\r\n   - go_to            : personagem vai
+      para um comodo de um tipo espec\xEDfico. Par\xE2metros (\"Room\" : tipo do
+      c\xF4modo que deseja ir, que s\xF3 podem ser (exatamente com esses nomes):
+      Biolab1, Biolab2, Biolab3, Cultura, Energia, Oficina, Comunicacao, Hangar,
+      Enfermaria, Dormitorios, Cozinha ou Refeitorio)\r\n8. Nunca utilize uma fun\xE7\xE3o
+      ou um par\xE2metro que n\xE3o esteja listado a cima. Nunca utilize tamb\xE9m
+      nenhum valor de par\xE2metro que n\xE3o esteja listado a cima.\n9. Nunca inclua
+      explica\xE7\xF5es, coment\xE1rios ou textos fora do JSON.\r\n10. Nunca utilize
+      markdown, apenas texto puro.\r\n\r\nExemplo de resposta v\xE1lida:\r\n\r\n{\r\n 
+      \"pages\": [\r\n    \"Eu posso te acompanhar, sim. Mas cuidado, este caminho
+      \xE9 perigoso.\",\r\n    \"Fique perto de mim e n\xE3o toque em nada estranho.\"\r\n 
+      ],\r\n  \"Emoticon\": [\r\n    \"Thinking\",\r\n    \"Default\"\r\n  ],\r\n 
+      \"action\": {\r\n    \"type\": \"follow_player\",\r\n    \"parameters\": {\r\n   
+      }\r\n  }\r\n}\r\n\r\n**N\xC3O ESCREVA NADA FORA DO JSON**"
